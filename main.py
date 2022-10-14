@@ -1,8 +1,8 @@
 import pygame as pg
 import sys
 import random
-import Player from player
-import Item from item
+from player import Player
+from item import *
 
 
 def gerar_itens(screen,all_items):
