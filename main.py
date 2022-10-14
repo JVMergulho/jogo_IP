@@ -1,15 +1,19 @@
 import pygame as pg
 import sys
 import random
-import Player from player
-import Item from item
+from player import Player
+from item import *
 
 
 def gerar_itens(screen,all_items):
-    num = random.randint(1, 5)
+    qtd = random.randint(1, 5)
+    num_item = random.randint(0,1)
 
-    for i in range(num):
-        item = Item(screen)
+    for i in range(qtd):
+        if num_item==1:
+            item = Coffee()
+        else:
+            item =Energy_drink()
         all_items.add(item)
 
 def main():
@@ -29,8 +33,6 @@ def main():
     gerar_itens(screen,all_items)
 
     all_sprites.add(player)
-    #all_sprites.add(player2)
-    #all_sprites.add(player3)
 
     while True:
         for event in pg.event.get():
