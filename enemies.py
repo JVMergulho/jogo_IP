@@ -1,1 +1,5 @@
-print('hello world, testing')
+import pygame
+
+class Bugs():
+    def __init__(self):
+        pass
