@@ -8,7 +8,7 @@ class Item(pg.sprite.Sprite):
 
         self.sprites=[]
 
-        self.sprites.append(pg.image.load('assets\coffe.png'))
+        self.sprites.append(pg.image.load('assets\coffee.png'))
         self.sprites.append(pg.image.load('assets\energy_drink.png'))
         self.atual= random.randint(0, 1)
         self.image = self.sprites[self.atual]
