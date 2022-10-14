@@ -1,8 +1,9 @@
 import pygame as pg
 import sys
 import random
-import Player from player
-import Item from item
+from player import Player
+from item import Item
+from enemies import Bug
 
 
 def gerar_itens(screen,all_items):
@@ -25,9 +26,16 @@ def main():
 
     all_sprites= pg.sprite.Group()
     all_items = pg.sprite.Group()
+    all_bugs = pg.sprite.Group()
+
+    x = random.randint(50,600)
+    y = random.randint(50,600)
+
+    bug = Bug(x,y)
 
     gerar_itens(screen,all_items)
 
+    all_bugs.add(bug)
     all_sprites.add(player)
     #all_sprites.add(player2)
     #all_sprites.add(player3)
@@ -38,13 +46,16 @@ def main():
                 pg.quit()
                 sys.exit()
 
-        screen.fill((50, 65, 90))
+        screen.fill((50, 80, 90))
 
         all_sprites.draw(screen)
         all_sprites.update()
 
         all_items.update(player.rect)
         all_items.draw(screen)
+
+        all_bugs.draw(screen)
+    
 
         pg.display.flip()
         clock.tick(30)
