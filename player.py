@@ -14,7 +14,7 @@ class Player(pg.sprite.Sprite):
         self.atual= 0
         self.image= self.sprites[self.atual]
 
-        self.image = pg.transform.scale(self.image, (64, 64))
+        self.image = pg.transform.scale(self.image, (70, 70))
 
         self.rect= self.image.get_rect()
         self.rect.topleft= x,y
@@ -23,7 +23,7 @@ class Player(pg.sprite.Sprite):
         self.x= x
         self.y= y
 
-        self.rect.update(self.x, self.y, 50, 50)
+        self.rect.update(self.x, self.y, 70, 70)
 
         self.right= right
         self.left= left
@@ -32,27 +32,38 @@ class Player(pg.sprite.Sprite):
 
         self.vel= 5
 
+    def muda_sprite(self):
+        self.atual = self.atual + 0.5
+        if self.atual >= len(self.sprites):
+            self.atual = 0
+        self.image = self.sprites[int(self.atual)]
+        print(int(self.atual))
+        self.image = pg.transform.scale(self.image, (70, 70))
+
     def update(self):
-        self.atual= self.atual+0.3
-        if self.atual> len(self.sprites):
-            self.atual=0
-        self.image= self.sprites[int(self.atual)]
-        self.image = pg.transform.scale(self.image, (64, 64))
         self.move()
 
     def move(self):
+        walk= False
+
         keys= pg.key.get_pressed()
         if keys[self.right]:
+            walk=True
             self.x+= self.vel
         if keys[self.left]:
             self.x-= self.vel
+            walk = True
         if keys[self.up]:
             self.y-= self.vel
+            walk = True
         if keys[self.down]:
             self.y+= self.vel
-        if keys[pg.K_SPACE]:
-            self.x,self.y = 320, 320
+            walk = True
 
-        self.image = self.sprites[int(self.atual)]
+        if walk:
+            self.muda_sprite()
+        else:
+            self.image = self.sprites[1]
+
 
         self.rect.topleft = self.x, self.y
