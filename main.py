@@ -55,7 +55,7 @@ def main():
         all_items.draw(screen)
 
         all_bugs.draw(screen)
-    
+        all_bugs.update(player)
 
         pg.display.flip()
         clock.tick(30)

@@ -17,7 +17,7 @@ class Player(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (64, 64))
 
         self.rect= self.image.get_rect()
-        self.rect.topleft= x,y
+        self.rect.center= x,y
 
         self.win= win
         self.x= x
@@ -50,9 +50,7 @@ class Player(pg.sprite.Sprite):
             self.y-= self.vel
         if keys[self.down]:
             self.y+= self.vel
-        if keys[pg.K_SPACE]:
-            self.x,self.y = 320, 320
 
         self.image = self.sprites[int(self.atual)]
 
-        self.rect.topleft = self.x, self.y
+        self.rect.center = self.x, self.y
