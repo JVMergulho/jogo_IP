@@ -22,16 +22,17 @@ class Bug(pg.sprite.Sprite):
         self.vel = 3
 
     # Faz o inimigo se mover em direção ao player
+    # a condição do abs previne que o bug tente sincronizar infinitamente com o player
     def update(self, player):
-        if player.x < self.x:
+        if player.x < self.x and abs(player.x - self.x) > 5:
             self.x -= self.vel
-        elif player.x > self.x:
+        elif player.x > self.x and abs(player.x - self.x) > 5:
             self.x += self.vel
         else:
             self.x -= 0
-        if player.y > self.y:
+        if player.y > self.y and abs(player.y - self.y) > 5:
             self.y += self.vel
-        elif player.y < self.y:
+        elif player.y < self.y and abs(player.y - self.y) > 5:
             self.y -= self.vel
         else:
             self.y -= 0
