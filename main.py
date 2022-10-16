@@ -4,7 +4,7 @@ import random
 from player import Player
 from item import Item
 from enemies import Bug
-
+from random import choice
 
 def gerar_itens(screen,all_items):
     num = random.randint(1, 5)
@@ -28,17 +28,16 @@ def main():
     all_items = pg.sprite.Group()
     all_bugs = pg.sprite.Group()
 
-    x = random.randint(50,600)
-    y = random.randint(50,600)
-
-    bug = Bug(x,y)
+   
 
     gerar_itens(screen,all_items)
 
-    all_bugs.add(bug)
     all_sprites.add(player)
     #all_sprites.add(player2)
     #all_sprites.add(player3)
+
+    #variavel para controlar o spaw dos bugs
+    contador = 0
 
     while True:
         for event in pg.event.get():
@@ -53,12 +52,22 @@ def main():
 
         all_items.update(player.rect)
         all_items.draw(screen)
-
+        
+        if contador%150 == 0:
+            for i in range(4):
+                x_left = random.randint(-40, -10)
+                x_right = random.randint(690,720)
+                x = choice([x_left, x_right])
+                y = random.randint(50,600)
+                bug = Bug(x,y)
+                all_bugs.add(bug)
         all_bugs.draw(screen)
         all_bugs.update(player)
 
         pg.display.flip()
         clock.tick(30)
+        contador += 1
+
 
         keys = pg.key.get_pressed()
         if keys[pg.K_SPACE]:
