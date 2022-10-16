@@ -10,8 +10,10 @@ class Item(pg.sprite.Sprite):
         # define o tipo do item: coffee ou energy_drink
         self.type = tipo
 
+
         # define a sprite que vai ser usada
         self.image = imagem
+
 
         self.rect = self.image.get_rect()
 
@@ -30,6 +32,7 @@ class Item(pg.sprite.Sprite):
         # Caso o player toque no item
         if self.rect.colliderect(self.player.rect):
             pg.sprite.Sprite.kill(self)
+
             print('Coletou item!')
 
             self.itens_lista.remove(self)
@@ -37,3 +40,4 @@ class Item(pg.sprite.Sprite):
             return self.type
         else:
             return None
+
