@@ -14,6 +14,10 @@ class Item(pg.sprite.Sprite):
         # define a sprite que vai ser usada
         self.image = imagem
 
+        self.sprites.append(pg.image.load('assets\coffee.png'))
+        self.sprites.append(pg.image.load('assets\energy_drink.png'))
+        self.atual= random.randint(0, 1)
+        self.image = self.sprites[self.atual]
 
         self.rect = self.image.get_rect()
 

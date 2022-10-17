@@ -2,6 +2,9 @@ import pygame as pg
 import sys
 import random
 from player import Player
+from item import Item
+from enemies import Bug
+from random import choice
 from item import *
 
 
@@ -49,6 +52,10 @@ def main():
 
     itens_lista = []
 
+    all_sprites= pg.sprite.Group()
+    all_items = pg.sprite.Group()
+    all_bugs = pg.sprite.Group()
+
     itens_coletados = {'coffee': 0,
                        'energy_drink': 0,
                        'inseticide': 0}
@@ -60,6 +67,9 @@ def main():
     all_items = pg.sprite.Group()
 
     all_sprites.add(player)
+
+    #variavel para controlar o spaw dos bugs
+    contador = 0
 
     while True:
         for event in pg.event.get():
@@ -73,6 +83,21 @@ def main():
         all_items.draw(screen)
         all_sprites.draw(screen)
         all_sprites.update()
+
+        #
+        all_items.update(player.rect)
+        all_items.draw(screen)
+        
+        if contador%150 == 0:
+            for i in range(4):
+                x_left = random.randint(-40, -10)
+                x_right = random.randint(690,720)
+                x = choice([x_left, x_right])
+                y = random.randint(50,600)
+                bug = Bug(x,y)
+                all_bugs.add(bug)
+        all_bugs.draw(screen)
+        all_bugs.update(player)
 
         # Inserir os itens coletados na tela
         text_coffee = font_game.render(
@@ -96,6 +121,8 @@ def main():
 
         pg.display.flip()
         clock.tick(30)
+        contador += 1
+
 
         # Testando a coleta de itens
         keys = pg.key.get_pressed()

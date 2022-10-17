@@ -21,13 +21,12 @@ class Player(pg.sprite.Sprite):
 
         self.image = pg.transform.scale(self.image, (70, 70))
 
-        self.rect = self.image.get_rect()
-        self.rect.topleft = x, y
+        self.rect= self.image.get_rect()
+        self.rect.center= x,y
 
         self.win = win
         self.x = x
         self.y = y
-
 
         self.rect = self.image.get_rect()
         self.rect.topleft = x, y
@@ -76,5 +75,4 @@ class Player(pg.sprite.Sprite):
             self.image = self.sprites[1]
             self.image = pg.transform.scale(self.image, (70, 70))
 
-
-        self.rect.topleft = self.x, self.y
+        self.rect.center = self.x, self.y
