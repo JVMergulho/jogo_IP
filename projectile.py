@@ -16,12 +16,15 @@ class Projectile():
         self.x = player.x + 10 #adequa a saida do gas ao inseticida
         self.y = player.y - 7
 
-        #
-        self.image = pg.image.load('assets\\gas0.png')
+        
+        self.image = pg.image.load('assets\\gas3.png')
         self.image = pg.transform.scale(self.image, (35,35))
-        #
+        
 
         self.rect = self.image.get_rect()
+
+        # Quando a bala sumir do mapa
+        self.destroy = False
 
 
 

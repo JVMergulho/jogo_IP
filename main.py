@@ -54,7 +54,8 @@ def main():
 
     all_sprites= pg.sprite.Group()
     all_items = pg.sprite.Group()
-    all_bugs = pg.sprite.Group()
+    #all_bugs = pg.sprite.Group()
+    spri_bugs = pg.sprite.Group()
 
     itens_coletados = {'coffee': 0,
                        'energy_drink': 0,
@@ -70,6 +71,9 @@ def main():
     all_bullets = []
     #
 
+    # Lista com todos os bugs
+    all_bugs = []
+    
     all_sprites.add(player)
 
     #variavel para controlar o spaw dos bugs
@@ -109,9 +113,34 @@ def main():
                 x = choice([x_left, x_right])
                 y = random.randint(50,600)
                 bug = Bug(x,y)
-                all_bugs.add(bug)
-        all_bugs.draw(screen)
-        all_bugs.update(player)
+                #all_bugs.add(bug)
+                all_bugs.append(bug)
+        for um_bug in all_bugs:
+            um_bug.trace(screen)
+            um_bug.update(player)
+
+        #all_bugs.draw(screen)
+        #all_bugs.update(player)
+
+        # Destruindo as balas e os bugs quando entram em colisão
+        remove_bullets = []
+        remove_bugs = []
+        for bala in all_bullets:
+            bala.destroy = False
+            for um_bug in all_bugs:
+                um_bug.destroy = False
+                if bala.destroy == False and um_bug.destroy == False:
+                    if bala.rect.colliderect(um_bug.rect):
+                        bala.destroy = True
+                        um_bug.destroy = True
+                        remove_bullets.append(bala)
+                        remove_bugs.append(um_bug)
+
+        for bala in remove_bullets:
+            all_bullets.remove(bala)
+        for um_bug in remove_bugs:
+            all_bugs.remove(um_bug)
+
 
         # Inserir os itens coletados na tela
         text_coffee = font_game.render(
@@ -129,6 +158,7 @@ def main():
 
         for balas in all_bullets: #desenha o projetil gas na tela
             balas.trace(screen)
+
 
         for i in itens_lista:
             coletado = i.update()
