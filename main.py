@@ -84,8 +84,6 @@ def main():
         all_sprites.draw(screen)
         all_sprites.update()
 
-        #
-        all_items.update(player.rect)
         all_items.draw(screen)
         
         if contador%150 == 0:
