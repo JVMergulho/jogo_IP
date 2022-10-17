@@ -6,7 +6,7 @@ from item import Item
 from enemies import Bug
 from random import choice
 from item import *
-
+from projectile import Projectile
 
 def gerar_itens(itens_lista, all_items, player):
     num = random.randint(1, 5)
@@ -66,6 +66,10 @@ def main():
     all_sprites = pg.sprite.Group()
     all_items = pg.sprite.Group()
 
+    #
+    all_bullets = []
+    #
+
     all_sprites.add(player)
 
     #variavel para controlar o spaw dos bugs
@@ -76,6 +80,18 @@ def main():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+            
+            #
+            if event.type == pg.MOUSEBUTTONDOWN:
+                bala = Projectile(player)
+                all_bullets.append(bala)
+
+        #
+        for balas in all_bullets: #movimento do gas na tela
+            balas.projectile_move()
+        #
+
+        #
 
         # Faz o background aparecer
         screen.blit(pg.image.load('assets\\background.png'), (0, 0))
@@ -110,6 +126,9 @@ def main():
         screen.blit(pg.transform.scale(pg.image.load(
             'assets\energy_drink.png'), (35, 35)), (25, 65))
         screen.blit(text_energy_drink, (70, 75))
+
+        for balas in all_bullets: #desenha o projetil gas na tela
+            balas.trace(screen)
 
         for i in itens_lista:
             coletado = i.update()
