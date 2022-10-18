@@ -12,13 +12,14 @@ class Bug():
 
         self.image = pg.image.load('assets\\bug_simples.png')
         
-        self.image = pg.transform.scale(self.image, (50,50))
+        self.image = pg.transform.scale(self.image, (45,45))
 
         self.x = x
         self.y = y
 
-        self.rect = self.image.get_rect()
-        self.rect.center = self.x,self.y
+        #self.rect = self.image.get_rect()
+        #self.rect.center = self.x,self.y
+        self.rect = pg.Rect(self.x, self.y, 35, 38)
 
         self.vel = 3
 

@@ -17,11 +17,12 @@ class Projectile():
         self.y = player.y - 7
 
         
-        self.image = pg.image.load('assets\\gas3.png')
-        self.image = pg.transform.scale(self.image, (35,35))
+        self.image = pg.image.load('assets\\gas0.png')
+        self.image = pg.transform.scale(self.image, (20,20))
         
 
-        self.rect = self.image.get_rect()
+        #self.rect = self.image.get_rect()
+        self.rect = pg.Rect(player.x, player.y, 15, 15)
 
         # Quando a bala sumir do mapa
         self.destroy = False
