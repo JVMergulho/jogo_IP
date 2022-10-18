@@ -73,22 +73,26 @@ def main():
 
     # Lista com todos os bugs
     all_bugs = []
-    
+
     all_sprites.add(player)
 
     #variavel para controlar o spaw dos bugs
     contador = 0
+    #variavel para nao permitir atirar varias vezes ao mesmo tempo
+    cooldown = 15
 
     while True:
+        cooldown += 1 #esfriar o inseticida
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
             
             #
-            if event.type == pg.MOUSEBUTTONDOWN:
+            if event.type == pg.MOUSEBUTTONDOWN and cooldown >= 15:
                 bala = Projectile(player)
                 all_bullets.append(bala)
+                cooldown = 0
 
         #
         for balas in all_bullets: #movimento do gas na tela
