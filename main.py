@@ -6,7 +6,7 @@ from item import Item
 from enemies import Bug
 from random import choice
 from item import *
-
+from projectile import Projectile
 
 def gerar_itens(itens_lista, all_items, player):
     num = random.randint(1, 5)
@@ -45,6 +45,7 @@ def main():
 
     # inicia o objeto que será a tela do jogo
     screen = pg.display.set_mode((672, 672))
+    width,height = 672,672
     clock = pg.time.Clock()
     pg.display.set_caption('Bug Bounty')
 
@@ -54,7 +55,8 @@ def main():
 
     all_sprites= pg.sprite.Group()
     all_items = pg.sprite.Group()
-    all_bugs = pg.sprite.Group()
+    #all_bugs = pg.sprite.Group()
+    spri_bugs = pg.sprite.Group()
 
     itens_coletados = {'coffee': 0,
                        'energy_drink': 0,
@@ -66,16 +68,39 @@ def main():
     all_sprites = pg.sprite.Group()
     all_items = pg.sprite.Group()
 
+    #
+    all_bullets = []
+    #
+
+    # Lista com todos os bugs
+    all_bugs = []
+
     all_sprites.add(player)
 
     #variavel para controlar o spaw dos bugs
     contador = 0
+    #variavel para nao permitir atirar varias vezes ao mesmo tempo
+    cooldown = 15
 
     while True:
+        cooldown += 1 #esfriar o inseticida
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+            
+            #
+            if event.type == pg.MOUSEBUTTONDOWN and cooldown >= 15:
+                bala = Projectile(player)
+                all_bullets.append(bala)
+                cooldown = 0
+
+        #
+        for balas in all_bullets: #movimento do gas na tela
+            balas.projectile_move()
+        #
+
+        #
 
         # Faz o background aparecer
         screen.blit(pg.image.load('assets\\background.png'), (0, 0))
@@ -93,9 +118,36 @@ def main():
                 x = choice([x_left, x_right])
                 y = random.randint(50,600)
                 bug = Bug(x,y)
-                all_bugs.add(bug)
-        all_bugs.draw(screen)
-        all_bugs.update(player)
+                #all_bugs.add(bug)
+                all_bugs.append(bug)
+        for um_bug in all_bugs:
+            um_bug.trace(screen)
+            um_bug.update(player)
+
+        #all_bugs.draw(screen)
+        #all_bugs.update(player)
+
+        #Destruindo as balas e os bugs quando entram em colisão
+        remove_bullets = []
+        remove_bugs = []
+        for bala in all_bullets:
+            bala.destroy = False
+            if (bala.rect.x < 0 or bala.rect.x > width) or bala.rect.y < 0 or bala.rect.y > height:
+                all_bullets.remove(bala)
+            for um_bug in all_bugs:
+                um_bug.destroy = False
+                if bala.destroy == False and um_bug.destroy == False:
+                    if bala.rect.colliderect(um_bug.rect):
+                        bala.destroy = True
+                        um_bug.destroy = True
+                        remove_bullets.append(bala)
+                        remove_bugs.append(um_bug)
+
+        for bala in remove_bullets:
+            all_bullets.remove(bala)
+        for um_bug in remove_bugs:
+            all_bugs.remove(um_bug)
+
 
         # Inserir os itens coletados na tela
         text_coffee = font_game.render(
@@ -110,6 +162,15 @@ def main():
         screen.blit(pg.transform.scale(pg.image.load(
             'assets\energy_drink.png'), (35, 35)), (25, 65))
         screen.blit(text_energy_drink, (70, 75))
+
+        for balas in all_bullets: #desenha o projetil gas na tela
+            balas.trace(screen)
+
+            #Destruindo as balas que saíram da tela
+            # if (bala.rect.x > width or bala.rect.x < 0) or (bala.rect.y > height or bala.rect.y < 0):
+            #     all_bullets.remove(bala)
+            #     print('removi bala')
+
 
         for i in itens_lista:
             coletado = i.update()

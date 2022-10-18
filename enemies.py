@@ -3,7 +3,8 @@ from player import Player
 
 # Essa é classe dos inimigos
 
-class Bug(pg.sprite.Sprite):
+#class Bug(pg.sprite.Sprite):
+class Bug():
     # Inicializa o inimigo
     def __init__(self,x,y):
         
@@ -11,15 +12,18 @@ class Bug(pg.sprite.Sprite):
 
         self.image = pg.image.load('assets\\bug_simples.png')
         
-        self.image = pg.transform.scale(self.image, (50,50))
+        self.image = pg.transform.scale(self.image, (45,45))
 
         self.x = x
         self.y = y
 
-        self.rect = self.image.get_rect()
-        self.rect.center = self.x,self.y
+        #self.rect = self.image.get_rect()
+        #self.rect.center = self.x,self.y
+        self.rect = pg.Rect(self.x, self.y, 35, 38)
 
         self.vel = 3
+
+        self.destroy = False
 
     # Faz o inimigo se mover em direção ao player
     # a condição do abs previne que o bug tente sincronizar infinitamente com o player
@@ -39,6 +43,9 @@ class Bug(pg.sprite.Sprite):
        
 
         self.rect.center = self.x, self.y
+    
+    def trace(self, screen): #desenho do bug
+        screen.blit(self.image, self.rect)
 
 
 
