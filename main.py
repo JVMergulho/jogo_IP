@@ -132,6 +132,8 @@ def main():
         remove_bugs = []
         for bala in all_bullets:
             bala.destroy = False
+            if (bala.rect.x < 0 or bala.rect.x > width) or bala.rect.y < 0 or bala.rect.y > height:
+                all_bullets.remove(bala)
             for um_bug in all_bugs:
                 um_bug.destroy = False
                 if bala.destroy == False and um_bug.destroy == False:
@@ -165,9 +167,9 @@ def main():
             balas.trace(screen)
 
             #Destruindo as balas que saíram da tela
-            if (bala.rect.x > width or bala.rect.x < 0) or (bala.rect.y > height or bala.rect.y < 0):
-                all_bullets.remove(bala)
-                print('removi bala')
+            # if (bala.rect.x > width or bala.rect.x < 0) or (bala.rect.y > height or bala.rect.y < 0):
+            #     all_bullets.remove(bala)
+            #     print('removi bala')
 
 
         for i in itens_lista:
