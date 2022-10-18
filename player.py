@@ -79,5 +79,9 @@ class Player(pg.sprite.Sprite):
             self.x=678
         elif self.x>=678:
             self.x=-10
-        self.rect.center = self.x, self.y
-    
+        self.rect.center = self.x, self.y 
+        #Cria uma borda no eixo y
+        if self.y <= 215:
+            self.y=215
+        if self.y >= 645:
+            self.y = 645
