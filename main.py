@@ -45,6 +45,7 @@ def main():
 
     # inicia o objeto que será a tela do jogo
     screen = pg.display.set_mode((672, 672))
+    width,height = 672,672
     clock = pg.time.Clock()
     pg.display.set_caption('Bug Bounty')
 
@@ -126,7 +127,7 @@ def main():
         #all_bugs.draw(screen)
         #all_bugs.update(player)
 
-        # Destruindo as balas e os bugs quando entram em colisão
+        #Destruindo as balas e os bugs quando entram em colisão
         remove_bullets = []
         remove_bugs = []
         for bala in all_bullets:
@@ -162,6 +163,11 @@ def main():
 
         for balas in all_bullets: #desenha o projetil gas na tela
             balas.trace(screen)
+
+            #Destruindo as balas que saíram da tela
+            if (bala.rect.x > width or bala.rect.x < 0) or (bala.rect.y > height or bala.rect.y < 0):
+                all_bullets.remove(bala)
+                print('removi bala')
 
 
         for i in itens_lista:
