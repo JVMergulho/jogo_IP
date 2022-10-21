@@ -1,7 +1,6 @@
 import pygame as pg
 import random
 
-
 class Item(pg.sprite.Sprite):
     def __init__(self, tipo, imagem, player, itens_lista):
 
@@ -16,8 +15,8 @@ class Item(pg.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-        self.x = random.randint(20, 600)
-        self.y = random.randint(120, 600)
+        self.x = random.randint(0, 668)
+        self.y = random.randint(215, 645)
 
         self.player = player
         self.itens_lista = itens_lista
@@ -31,9 +30,9 @@ class Item(pg.sprite.Sprite):
         # Caso o player toque no item
         if self.rect.colliderect(self.player.rect):
             pg.sprite.Sprite.kill(self)
-
+            
             print('Coletou item!')
-
+            
             self.itens_lista.remove(self)
 
             return self.type

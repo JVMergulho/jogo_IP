@@ -13,7 +13,6 @@ def gerar_itens(itens_lista, all_items, player):
 
     imagens_itens = {'coffee': pg.image.load('assets\cafe.gif'),
                      'energy_drink': pg.image.load('assets\energy_drink.png')}
-
     for i in range(num):
 
         if random.randint(0, 1) == 0:
@@ -61,7 +60,7 @@ def main():
     itens_coletados = {'coffee': 0,
                        'energy_drink': 0,
                        'inseticide': 0}
-
+    bugs_mortos = {'bugs': 0,}
     player = Player(screen, 320, 320, pg.K_d, pg.K_a, pg.K_w, pg.K_s)
     # player2=Player(screen,300,320,pg.K_RIGHT,pg.K_LEFT,pg.K_UP,pg.K_DOWN)
 
@@ -83,7 +82,8 @@ def main():
     cooldown = 15
 
     while True:
-        cooldown += 1 #esfriar o inseticida
+        cooldown += 1 #esfriar o inseticida]
+    
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -94,8 +94,8 @@ def main():
                 bala = Projectile(player)
                 all_bullets.append(bala)
                 cooldown = 0
-
-        #
+                
+        #      
         for balas in all_bullets: #movimento do gas na tela
             balas.projectile_move()
         #
@@ -123,7 +123,7 @@ def main():
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player)
-
+        
         #all_bugs.draw(screen)
         #all_bugs.update(player)
 
@@ -141,6 +141,8 @@ def main():
                     if bala.rect.colliderect(um_bug.rect):
                         bala.destroy = True
                         um_bug.destroy = True
+                        bugs_mortos['bugs']+=1
+                        print(bugs_mortos)
                         remove_bullets.append(bala)
                         remove_bugs.append(um_bug)
 
@@ -150,16 +152,21 @@ def main():
             all_bugs.remove(um_bug)
 
 
-        # Inserir os itens coletados na tela
+        # Inserir os itens coletados na tela e bugs mortos 
         text_coffee = font_game.render(
             f'X {itens_coletados["coffee"]}', 1, branco)
         text_energy_drink = font_game.render(
             f'X {itens_coletados["energy_drink"]}', 1, branco)
-
+        text_bugs = font_game.render(
+            f'X {bugs_mortos["bugs"]}', 1,branco)
+        
+        screen.blit(pg.transform.scale(pg.image.load(
+            'assets\\bug_simples.png'), (40,35)),(20,105))
+        screen.blit(text_bugs,(70,115))
+        
         screen.blit(pg.transform.scale(pg.image.load(
             'assets\cafe.gif'), (40, 35)), (20, 20))
         screen.blit(text_coffee, (70, 35))
-
         screen.blit(pg.transform.scale(pg.image.load(
             'assets\energy_drink.png'), (35, 35)), (25, 65))
         screen.blit(text_energy_drink, (70, 75))
