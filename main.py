@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+from pathlib import Path
 from player import Player
 from item import Item
 from enemies import Bug
@@ -8,6 +9,7 @@ from random import choice
 from item import *
 from projectile import Projectile
 import math
+
 def gerar_itens(itens_lista, all_items, player,x,y):
     num = random.randint(1, 5)
 
@@ -36,8 +38,15 @@ def main():
     # Adiciona música de fundo
     pg.init()
 
-    game_music = pg.mixer.music.load('assets\game_music.mp3')
+    pg.mixer.music.load('assets\game_music.mp3')
     pg.mixer.music.play(-1)
+
+    # sons do jogo
+    item_sound = pg.mixer.Sound(Path('assets','item_sound.flac'))
+    item_sound.set_volume(0.3)
+
+    spray_sound = pg.mixer.Sound(Path('assets','spray_sound.wav'))
+    spray_sound.set_volume(0.3)
 
     # define a variárvel que armazena o padrão RGB para a cor branca
     branco = (255, 255, 255)
@@ -102,6 +111,8 @@ def main():
                 bala = Projectile(player)
                 all_bullets.append(bala)
                 cooldown = 0
+
+                spray_sound.play()
                 
         #      
         for balas in all_bullets: #movimento do gas na tela
@@ -189,11 +200,14 @@ def main():
             balas.trace(screen)
 
 
+        # Atualiza do dicionário de itesn coletados
         for i in itens_lista:
             coletado = i.update()
             if coletado != None:
                 itens_coletados[coletado] += 1
                 print(itens_coletados)
+
+                item_sound.play() # Efeito sonoro
 
         pg.display.flip()
         clock.tick(30)
