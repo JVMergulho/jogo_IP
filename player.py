@@ -1,4 +1,5 @@
 import pygame as pg
+from pathlib import Path
 import sys
 
 class Player(pg.sprite.Sprite):
@@ -8,14 +9,10 @@ class Player(pg.sprite.Sprite):
         # lista de sprites usadas para a animação
         self.sprites = []
 
-        self.sprites.append(pg.image.load(
-            'assets\personagem_com_inseticida-1.png'))
-        self.sprites.append(pg.image.load(
-            'assets\personagem_com_inseticida-2.png'))
-        self.sprites.append(pg.image.load(
-            'assets\personagem_com_inseticida-3.png'))
-        self.sprites.append(pg.image.load(
-            'assets\personagem_com_inseticida-2.png'))
+        self.sprites.append(pg.image.load(Path('assets','personagem_com_inseticida-1.png')))
+        self.sprites.append(pg.image.load(Path('assets','personagem_com_inseticida-2.png')))
+        self.sprites.append(pg.image.load(Path('assets','personagem_com_inseticida-3.png')))
+        self.sprites.append(pg.image.load(Path('assets','personagem_com_inseticida-2.png')))
         self.atual = 0
         self.image = self.sprites[self.atual]
 
