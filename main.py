@@ -200,7 +200,7 @@ def main():
             balas.trace(screen)
 
 
-        # Atualiza do dicionário de itens coletados
+        # Atualiza o dicionário de itens coletados
         for i in itens_lista:
             coletado = i.update()
             if coletado != None:

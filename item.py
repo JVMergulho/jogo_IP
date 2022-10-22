@@ -35,6 +35,8 @@ class Item(pg.sprite.Sprite):
         if self.time>150:
             pg.sprite.Sprite.kill(self)
 
+            self.itens_lista.remove(self)
+
         # Caso o player toque no item
         if self.rect.colliderect(self.player.rect):
             pg.sprite.Sprite.kill(self)
