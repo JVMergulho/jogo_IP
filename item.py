@@ -25,17 +25,22 @@ class Item(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (30, 30))
         self.rect.update(self.x, self.y, 20, 20)
 
+        self.time=0
+
     def update(self):
+
+        # Faz os itens desaparecerem depois de certo tempo
+        self.time+=1
+
+        if self.time>150:
+            pg.sprite.Sprite.kill(self)
 
         # Caso o player toque no item
         if self.rect.colliderect(self.player.rect):
             pg.sprite.Sprite.kill(self)
-            
-            print('Coletou item!')
             
             self.itens_lista.remove(self)
 
             return self.type
         else:
             return None
-
