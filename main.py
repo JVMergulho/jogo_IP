@@ -7,23 +7,29 @@ from enemies import Bug
 from random import choice
 from item import *
 from projectile import Projectile
-
-def gerar_itens(itens_lista, all_items, player):
+import math
+def gerar_itens(itens_lista, all_items, player,x,y):
     num = random.randint(1, 5)
 
     imagens_itens = {'coffee': pg.image.load('assets\cafe.gif'),
-                     'energy_drink': pg.image.load('assets\energy_drink.png')}
-    for i in range(num):
+                     'energy_drink': pg.image.load('assets\energy_drink.png'),        
+                     'bit_1': pg.image.load('assets\\bit_1.png'),
+                     'bit_0' : pg.image.load('assets\\bit_0.png')}  
+    
+    for i in range(1):
 
-        if random.randint(0, 1) == 0:
+        if random.randint(0, 3) == 0:
             tipo = 'coffee'
+        elif random.randint(0 , 3) == 1:
+            tipo = 'bit_0'
+        elif random.randint(0, 3) == 2:
+            tipo = 'bit_1'
         else:
             tipo = 'energy_drink'
 
-        item = Item(tipo, imagens_itens[tipo], player, itens_lista)
+        item = Item(tipo, imagens_itens[tipo], player, itens_lista,x,y)
         itens_lista.append(item)
         all_items.add(item)
-
 
 def main():
 
@@ -59,8 +65,10 @@ def main():
 
     itens_coletados = {'coffee': 0,
                        'energy_drink': 0,
-                       'inseticide': 0}
-    bugs_mortos = {'bugs': 0,}
+                       'inseticide': 0,
+                       'bit_0': 0,
+                       'bit_1': 0,
+                       'bugs': 0}
     player = Player(screen, 320, 320, pg.K_d, pg.K_a, pg.K_w, pg.K_s)
     # player2=Player(screen,300,320,pg.K_RIGHT,pg.K_LEFT,pg.K_UP,pg.K_DOWN)
 
@@ -141,25 +149,31 @@ def main():
                     if bala.rect.colliderect(um_bug.rect):
                         bala.destroy = True
                         um_bug.destroy = True
-                        bugs_mortos['bugs']+=1
-                        print(bugs_mortos)
+                        itens_coletados['bugs']+= 1
                         remove_bullets.append(bala)
                         remove_bugs.append(um_bug)
-
+                        
         for bala in remove_bullets:
             all_bullets.remove(bala)
         for um_bug in remove_bugs:
             all_bugs.remove(um_bug)
+            #Tem uma chance de gerar um item no lugar onde o bug morre
+            if random.randint(0, 2) == 1:
+              gerar_itens(itens_lista, all_items, player,um_bug.x,um_bug.y)
 
 
-        # Inserir os itens coletados na tela e bugs mortos 
+        # Inserir os itens coletados,bugs mortos e a pontuação na tela
         text_coffee = font_game.render(
             f'X {itens_coletados["coffee"]}', 1, branco)
         text_energy_drink = font_game.render(
             f'X {itens_coletados["energy_drink"]}', 1, branco)
         text_bugs = font_game.render(
-            f'X {bugs_mortos["bugs"]}', 1,branco)
+            f'X {itens_coletados["bugs"]}', 1,branco)
+        #Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
+        text_pontuacao = font_game.render(
+            f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, branco)
         
+        screen.blit(text_pontuacao,(270, 10))
         screen.blit(pg.transform.scale(pg.image.load(
             'assets\\bug_simples.png'), (40,35)),(20,105))
         screen.blit(text_bugs,(70,115))
@@ -188,8 +202,7 @@ def main():
 
         # Testando a coleta de itens
         keys = pg.key.get_pressed()
-        if keys[pg.K_SPACE]:
-            gerar_itens(itens_lista, all_items, player)
+
 
 
 if __name__ == '__main__':
