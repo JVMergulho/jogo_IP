@@ -80,7 +80,7 @@ def main():
     #variavel para controlar o spaw dos bugs
     contador = 0
     #variavel para nao permitir atirar varias vezes ao mesmo tempo
-    cooldown = 15
+    cooldown = 12
 
     while True:
         cooldown += 1 #esfriar o inseticida
@@ -90,7 +90,7 @@ def main():
                 sys.exit()
             
             #
-            if event.type == pg.MOUSEBUTTONDOWN and cooldown >= 15:
+            if event.type == pg.MOUSEBUTTONDOWN and cooldown >= 12:
                 bala = Projectile(player)
                 all_bullets.append(bala)
                 cooldown = 0
@@ -141,8 +141,10 @@ def main():
                     if bala.rect.colliderect(um_bug.rect):
                         bala.destroy = True
                         um_bug.destroy = True
-                        remove_bullets.append(bala)
-                        remove_bugs.append(um_bug)
+                        if bala not in remove_bullets:
+                            remove_bullets.append(bala)
+                        if um_bug not in remove_bugs:
+                            remove_bugs.append(um_bug)
 
         for bala in remove_bullets:
             all_bullets.remove(bala)
