@@ -1,4 +1,5 @@
 import pygame as pg
+from pathlib import Path
 import math
 from player import Player
 
@@ -17,7 +18,7 @@ class Projectile():
         self.y = player.y - 7
 
         
-        self.image = pg.image.load('assets\\gas0.png')
+        self.image = pg.image.load(Path('assets','gas0.png'))
         self.image = pg.transform.scale(self.image, (20,20))
         
 

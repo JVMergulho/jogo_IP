@@ -73,7 +73,6 @@ def main():
 
     all_sprites = pg.sprite.Group()
     all_items = pg.sprite.Group()
-    #all_bugs = pg.sprite.Group()
     spri_bugs = pg.sprite.Group()
 
     itens_coletados = {'coffee': 0,
@@ -99,8 +98,9 @@ def main():
 
     # variavel para controlar o spaw dos bugs
     contador = 0
-    # variavel para nao permitir atirar varias vezes ao mesmo tempo
-    cooldown = 12
+    gradacao = 0
+    #variavel para nao permitir atirar varias vezes ao mesmo tempo
+    cooldown = 15
 
     while True:
         cooldown += 1  # esfriar o inseticida]
@@ -121,34 +121,34 @@ def main():
         #
         for balas in all_bullets:  # movimento do gas na tela
             balas.projectile_move()
-        #
-
-        #
 
         # Faz o background aparecer
-        screen.blit(pg.image.load('assets\\background.png'), (0, 0))
+        screen.blit(pg.image.load(Path('assets','background.png')), (0, 0))
 
         all_items.draw(screen)
         all_sprites.draw(screen)
         all_sprites.update()
 
-        all_items.draw(screen)
+        all_items.draw(screen) 
 
-        if contador % 150 == 0:
-            for i in range(4):
+        #controla o spam gradativo de bugs  
+        if contador%200 == 0:
+            gradacao += 1
+            if gradacao > 3:
+                gradacao = 3
+            for i in range(gradacao):
                 x_left = random.randint(-40, -10)
                 x_right = random.randint(690, 720)
                 x = choice([x_left, x_right])
-                y = random.randint(50, 600)
-                bug = Bug(x, y)
-                # all_bugs.add(bug)
+                y = random.randint(50,600)
+                identificar_posicao_bug = {'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
+                bug = Bug(x,y)
                 all_bugs.append(bug)
+        
         for um_bug in all_bugs:
             um_bug.trace(screen)
-            um_bug.update(player)
+            um_bug.update(player, identificar_posicao_bug)
 
-        # all_bugs.draw(screen)
-        # all_bugs.update(player)
 
         # Destruindo os projéteis e os bugs quando entram em colisão
         remove_bullets = []
@@ -200,11 +200,10 @@ def main():
             'assets\\bug_simples.png'), (40, 35)), (20, 105))
         screen.blit(text_bugs, (70, 115))
 
-        screen.blit(pg.transform.scale(pg.image.load(
-            'assets\cafe.gif'), (40, 35)), (20, 20))
+        screen.blit(pg.transform.scale(pg.image.load(Path('assets','cafe.gif')), (40, 35)), (20, 20))
         screen.blit(text_coffee, (70, 35))
-        screen.blit(pg.transform.scale(pg.image.load(
-            'assets\energy_drink.png'), (35, 35)), (25, 65))
+
+        screen.blit(pg.transform.scale(pg.image.load(Path('assets','energy_drink.png')), (35, 35)), (25, 65))
         screen.blit(text_energy_drink, (70, 75))
 
         for balas in all_bullets:  # desenha o projetil gas na tela
@@ -229,3 +228,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
