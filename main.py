@@ -167,8 +167,6 @@ def main():
                             remove_bugs.append(um_bug)
 
                         itens_coletados['bugs']+= 1
-                        remove_bullets.append(bala)
-                        remove_bugs.append(um_bug)
                         
 
         for bala in remove_bullets:
@@ -223,8 +221,6 @@ def main():
 
         # Testando a coleta de itens
         keys = pg.key.get_pressed()
-
-
 
 if __name__ == '__main__':
     main()
