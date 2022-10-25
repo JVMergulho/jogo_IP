@@ -1,4 +1,4 @@
-from asyncio import FastChildWatcher
+#from asyncio import FastChildWatcher
 import pygame as pg
 from pathlib import Path
 from player import Player
@@ -57,13 +57,23 @@ class Bug():
         
         else: 
             if identificar_posicao_bug['esquerda']:
-                player.x -= 40
+                if player.x < 30:
+                    player.x= 678 +(player.x-40)
+                else:
+                    player.x -= 40
             elif identificar_posicao_bug['direita']:
-                player.x += 40
+                if player.x > 678:
+                    player.x = -10 + (player.x + 40 - 678 )
+                else:
+                    player.x += 40
+
             if identificar_posicao_bug['embaixo']:
                 player.y -= 40
             elif identificar_posicao_bug['em cima']:
-                player.y += 40
+                if player.y> 605:
+                    player.y= 645
+                else:
+                    player.y += 40
 
         self.rect.center = self.x, self.y
 

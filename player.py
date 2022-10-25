@@ -72,13 +72,13 @@ class Player(pg.sprite.Sprite):
             self.image = self.sprites[1]
             self.image = pg.transform.scale(self.image, (70, 70))
         #Cria uma borda,a qual transporta o player de um lado pro outro,no eixo x
-        if self.x <= -10:
+        if self.x < -10:
             self.x=678
-        elif self.x>=678:
+        elif self.x > 678:
             self.x=-10
         self.rect.center = self.x, self.y 
         #Cria uma borda no eixo y
-        if self.y <= 215:
+        if self.y < 215:
             self.y=215
-        if self.y >= 645:
+        if self.y > 645:
             self.y = 645
