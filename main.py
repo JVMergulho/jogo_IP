@@ -18,20 +18,18 @@ def gerar_itens(itens_lista, all_items, player, x, y):
                      'bit_1': pg.image.load('assets\\bit_1.png'),
                      'bit_0': pg.image.load('assets\\bit_0.png')}
 
-    for i in range(1):
+    if random.randint(0, 3) == 0:
+        tipo = 'coffee'
+    elif random.randint(0, 3) == 1:
+        tipo = 'bit_0'
+    elif random.randint(0, 3) == 2:
+        tipo = 'bit_1'
+    else:
+        tipo = 'energy_drink'
 
-        if random.randint(0, 3) == 0:
-            tipo = 'coffee'
-        elif random.randint(0, 3) == 1:
-            tipo = 'bit_0'
-        elif random.randint(0, 3) == 2:
-            tipo = 'bit_1'
-        else:
-            tipo = 'energy_drink'
-
-        item = Item(tipo, imagens_itens[tipo], player, itens_lista, x, y)
-        itens_lista.append(item)
-        all_items.add(item)
+    item = Item(tipo, imagens_itens[tipo], player, itens_lista, x, y)
+    itens_lista.append(item)
+    all_items.add(item)
 
 
 def main():
@@ -99,7 +97,7 @@ def main():
     # variavel para controlar o spaw dos bugs
     contador = 0
     gradacao = 0
-    #variavel para nao permitir atirar varias vezes ao mesmo tempo
+    # variavel para nao permitir atirar varias vezes ao mesmo tempo
     cooldown = 15
 
     while True:
@@ -123,16 +121,16 @@ def main():
             balas.projectile_move()
 
         # Faz o background aparecer
-        screen.blit(pg.image.load(Path('assets','background.png')), (0, 0))
+        screen.blit(pg.image.load(Path('assets', 'background.png')), (0, 0))
 
         all_items.draw(screen)
         all_sprites.draw(screen)
         all_sprites.update()
 
-        all_items.draw(screen) 
+        all_items.draw(screen)
 
-        #controla o spam gradativo de bugs  
-        if contador%200 == 0:
+        # controla o spam gradativo de bugs
+        if contador % 200 == 0:
             gradacao += 1
             if gradacao > 3:
                 gradacao = 3
@@ -140,15 +138,15 @@ def main():
                 x_left = random.randint(-40, -10)
                 x_right = random.randint(690, 720)
                 x = choice([x_left, x_right])
-                y = random.randint(50,600)
-                identificar_posicao_bug = {'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
-                bug = Bug(x,y)
+                y = random.randint(50, 600)
+                identificar_posicao_bug = {
+                    'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
+                bug = Bug(x, y)
                 all_bugs.append(bug)
-        
+
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player, identificar_posicao_bug)
-
 
         # Destruindo os projéteis e os bugs quando entram em colisão
         remove_bullets = []
@@ -200,10 +198,12 @@ def main():
             'assets\\bug_simples.png'), (40, 35)), (20, 105))
         screen.blit(text_bugs, (70, 115))
 
-        screen.blit(pg.transform.scale(pg.image.load(Path('assets','cafe.gif')), (40, 35)), (20, 20))
+        screen.blit(pg.transform.scale(pg.image.load(
+            Path('assets', 'cafe.gif')), (40, 35)), (20, 20))
         screen.blit(text_coffee, (70, 35))
 
-        screen.blit(pg.transform.scale(pg.image.load(Path('assets','energy_drink.png')), (35, 35)), (25, 65))
+        screen.blit(pg.transform.scale(pg.image.load(
+            Path('assets', 'energy_drink.png')), (35, 35)), (25, 65))
         screen.blit(text_energy_drink, (70, 75))
 
         for balas in all_bullets:  # desenha o projetil gas na tela
@@ -228,4 +228,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
