@@ -24,7 +24,8 @@ class Bug():
 
         self.destroy = False
 
-    # Faz o inimigo se mover em direção ao player e, se o inimigo atacá-lo, faz o player se mover para a direção contrária da direção que o inimigo atacou
+    # Faz o inimigo se mover em direção ao player
+    # Também, se o player for atacado, faz o player se mover para a direção contrária da direção que o inimigo atacou
     # a condição do abs previne que o bug tente sincronizar infinitamente com o player
     def update(self, player, identificar_posicao_bug):
 
@@ -32,7 +33,7 @@ class Bug():
         if self.rect.colliderect(player.rect) is False:    
             if player.x < self.x and abs(player.x - self.x) > 5:
                 self.x -= self.vel
-                identificar_posicao_bug['esquerda'] = True
+                identificar_posicao_bug['esquerda'] = True # Com as coordenadas, identifica a posição do bug em relação ao player
                 identificar_posicao_bug['direita'] = False
             elif player.x > self.x and abs(player.x - self.x) > 5:
                 self.x += self.vel
@@ -56,7 +57,7 @@ class Bug():
                 identificar_posicao_bug['embaixo'] = False
         
         else: 
-            if identificar_posicao_bug['esquerda']:
+            if identificar_posicao_bug['esquerda']: 
                 if player.x < 30:
                     player.x= 678 +(player.x-40)
                 else:
