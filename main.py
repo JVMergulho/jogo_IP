@@ -9,14 +9,15 @@ from random import choice
 from item import *
 from projectile import Projectile
 import math
+from lives import Lives
 
 
 def gerar_itens(itens_lista, all_items, player, x, y):
 
-    imagens_itens = {'coffee': pg.image.load(Path('assets','cafe.gif')),
-                     'energy_drink': pg.image.load(Path('assets','energy_drink.png')),
-                     'bit_1': pg.image.load(Path('assets','bit_1.png')),
-                     'bit_0': pg.image.load(Path('assets','bit_0.png'))}
+    imagens_itens = {'coffee': pg.image.load(Path('assets', 'cafe.gif')),
+                     'energy_drink': pg.image.load(Path('assets', 'energy_drink.png')),
+                     'bit_1': pg.image.load(Path('assets', 'bit_1.png')),
+                     'bit_0': pg.image.load(Path('assets', 'bit_0.png'))}
 
     if random.randint(0, 3) == 0:
         tipo = 'coffee'
@@ -37,7 +38,7 @@ def main():
     # Adiciona música de fundo
     pg.init()
 
-    pg.mixer.music.load(Path('assets','game_music.mp3'))
+    pg.mixer.music.load(Path('assets', 'game_music.mp3'))
     pg.mixer.music.set_volume(0.7)
     pg.mixer.music.play(-1)
 
@@ -65,13 +66,14 @@ def main():
     clock = pg.time.Clock()
     pg.display.set_caption('Bug Bounty')
 
+    live_points = Lives(screen)
+
     random.seed()
 
     itens_lista = []
 
     all_sprites = pg.sprite.Group()
     all_items = pg.sprite.Group()
-    spri_bugs = pg.sprite.Group()
 
     itens_coletados = {'coffee': 0,
                        'energy_drink': 0,
@@ -183,8 +185,6 @@ def main():
                 gerar_itens(itens_lista, all_items, player, um_bug.x, um_bug.y)
 
         # Inserir os itens coletados,bugs mortos e a pontuação na tela
-        text_coffee = font_game.render(
-            f'X {itens_coletados["coffee"]}', 1, branco)
         text_energy_drink = font_game.render(
             f'X {itens_coletados["energy_drink"]}', 1, branco)
         text_bugs = font_game.render(
@@ -194,13 +194,12 @@ def main():
             f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, branco)
 
         screen.blit(text_pontuacao, (270, 10))
-        screen.blit(pg.transform.scale(pg.image.load(Path('assets','bug_simples.png')), (40, 35)), (20, 105))
+        screen.blit(pg.transform.scale(pg.image.load(
+            Path('assets', 'bug_simples.png')), (40, 35)), (20, 105))
         screen.blit(text_bugs, (70, 115))
 
-        screen.blit(pg.transform.scale(pg.image.load(Path('assets', 'cafe.gif')), (40, 35)), (20, 20))
-        screen.blit(text_coffee, (70, 35))
-
-        screen.blit(pg.transform.scale(pg.image.load(Path('assets', 'energy_drink.png')), (35, 35)), (25, 65))
+        screen.blit(pg.transform.scale(pg.image.load(
+            Path('assets', 'energy_drink.png')), (35, 35)), (25, 65))
         screen.blit(text_energy_drink, (70, 75))
 
         for balas in all_bullets:  # desenha o projetil gas na tela
@@ -215,9 +214,13 @@ def main():
 
                 item_sound.play()  # Efeito sonoro da coleta de item
 
+        # Desenha a vida na tela
+        live_points.draw()
+
         pg.display.flip()
         clock.tick(30)
         contador += 1
+
 
 if __name__ == '__main__':
     main()
