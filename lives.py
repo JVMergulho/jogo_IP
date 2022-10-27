@@ -1,7 +1,9 @@
 import pygame as pg
 from pathlib import Path
-
-
+from enemies import Bug
+from player import Player
+import sys
+from item import Item
 class Lives(pg.sprite.Sprite):
 
     def __init__(self, win):
@@ -12,6 +14,21 @@ class Lives(pg.sprite.Sprite):
         self.screen = win
 
     def draw(self):
-
-        for i in range(self.qtd):
+            
+    
+         for i in range(self.qtd):
             self.screen.blit(self.image, (20 + i*30, 20))
+    def update_vida(self,player,Bug):
+         colisao_vida=False
+         if player.rect.colliderect(Bug.rect) is True: 
+            self.qtd-=1
+            colisao_vida=True
+         if self.qtd == 0:
+            pg.quit()
+            sys.exit()
+         return colisao_vida
+    def vida_adicionar(self,player,item):
+         if player.rect.colliderect(item.rect) is True and self.qtd<=3:
+             self.qtd+=1
+             
+             

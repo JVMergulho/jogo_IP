@@ -109,7 +109,6 @@ def main():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
-
             #
             if event.type == pg.MOUSEBUTTONDOWN and cooldown >= 12:
                 bala = Projectile(player)
@@ -149,6 +148,7 @@ def main():
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player, identificar_posicao_bug)
+            live_points.update_vida(player,um_bug)
 
         # Destruindo os projéteis e os bugs quando entram em colisão
         remove_bullets = []
@@ -183,7 +183,6 @@ def main():
             # Tem uma chance de gerar um item no lugar onde o bug morre
             if random.randint(0, 2) == 1:
                 gerar_itens(itens_lista, all_items, player, um_bug.x, um_bug.y)
-
         # Inserir os itens coletados,bugs mortos e a pontuação na tela
         text_energy_drink = font_game.render(
             f'X {itens_coletados["energy_drink"]}', 1, branco)
@@ -211,16 +210,17 @@ def main():
             if coletado != None:
                 itens_coletados[coletado] += 1
                 print(itens_coletados)
-
                 item_sound.play()  # Efeito sonoro da coleta de item
+                print(coletado)
+                if coletado == "coffee":
+                    live_points.vida_adicionar(player,i)
 
         # Desenha a vida na tela
         live_points.draw()
-
         pg.display.flip()
         clock.tick(30)
         contador += 1
-
+        
 
 if __name__ == '__main__':
     main()
