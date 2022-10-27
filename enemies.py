@@ -75,7 +75,7 @@ class Bug():
                     player.y= 645
                 else:
                     player.y += 40
-
+            
         self.rect.center = self.x, self.y
 
         return identificar_posicao_bug
