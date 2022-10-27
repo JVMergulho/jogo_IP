@@ -75,6 +75,10 @@ class Bug():
                     player.y= 645
                 else:
                     player.y += 40
+            
+            #som da colisão com o player    
+            dano_player = pg.mixer.Sound(Path('assets','dano_player.wav'))
+            dano_player.play()
 
         self.rect.center = self.x, self.y
 
