@@ -8,9 +8,7 @@ from enemies import Bug
 from random import choice
 from item import *
 from projectile import Projectile
-from buttons import Button
 from menu import *
-import math
 
 
 def gerar_itens(itens_lista, all_items, player, x, y):

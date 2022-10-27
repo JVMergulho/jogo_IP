@@ -11,7 +11,7 @@ class Button():
         self.texto = texto
         
         self.rect = self.imagem.get_rect(center=(self.centrox, self.centroy))
-        self.text = button_font.render(self.texto, True, (190, 39, 228))
+        self.text = button_font.render(self.texto, True, (145, 61, 136))
         self.text_rect = self.text.get_rect(center=(self.centrox, self.centroy))
 
     def draw(self, screen):
@@ -27,4 +27,4 @@ class Button():
         if mouseX in range(self.rect.left, self.rect.right) and mouseY in range(self.rect.top, self.rect.bottom):
             self.text = button_font.render(self.texto, True, (89, 5, 110))
         else:
-            self.text = button_font.render(self.texto, True, (190, 39, 228))
+            self.text = button_font.render(self.texto, True, (145, 61, 136))
