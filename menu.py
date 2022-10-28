@@ -3,7 +3,7 @@ from buttons import Button
 from pathlib import Path
 import sys
 from main import main
-
+from time import sleep, time
 
 
 def menu_screen():
@@ -19,20 +19,26 @@ def menu_screen():
     foto_botao_play = pg.image.load(Path('assets','button4.png'))
     foto_botao_play = pg.transform.scale(foto_botao_play, (250, 100))
 
-    botao_play = Button(foto_botao_play, 336, 316, 'PLAY')
-    botao_story = Button(foto_botao_play, 336, 426, 'STORY')
-    botao_quit = Button(foto_botao_play, 336, 536, 'QUIT')
+    botao_play = Button(foto_botao_play, 336, 305, 'PLAY')
+    botao_story = Button(foto_botao_play, 336, 415, 'STORY')
+    botao_htp = Button(foto_botao_play, 336, 525, 'HOW TO PLAY')
+    botao_quit = Button(foto_botao_play, 336, 635, 'QUIT')
 
     botoes.append(botao_play)
     botoes.append(botao_story)
+    botoes.append(botao_htp)
     botoes.append(botao_quit)
 
+    #clock = pg.time.Clock()
+    #time_counter = 0
+    
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
         screen = pg.display.set_mode((672, 672))
         screen.blit(pg.image.load(Path('assets', 'background_menu.png')), (0, 0))
         pg.display.set_caption('Menu')
 
+        #time_counter += clock 
 
         for botao in botoes:
             Button.draw(botao, screen)
@@ -55,6 +61,11 @@ def menu_screen():
                             preview_jogo()
                         elif botao == botao_story:
                             story_screen()
+                        elif botao == botao_htp:
+                            instruction_screen()
+
+        #if clock > 3000:
+        #    main()
 
 
         pg.display.flip()
@@ -82,6 +93,8 @@ title_font = pg.font.SysFont('rage', 55)
 names_font = pg.font.SysFont('rage', 30)
 text_font = pg.font.SysFont('Arial', 25)
 font_points = pg.font.Font('freesansbold.ttf', 32) #Fonte que vai mostrar a pontuação final do jogador
+
+
 def story_screen():
 
     pg.init()
@@ -133,6 +146,37 @@ def story_screen():
 
 
         pg.display.flip()
+
+
+def instruction_screen():
+
+    pg.init()
+
+    foto_botao = pg.image.load(Path('assets','button4.png'))
+    foto_botao = pg.transform.scale(foto_botao, (250, 100))
+
+    botao_menu = Button(foto_botao, 336, 635, 'MENU')
+
+    while True:
+        mouseX, mouseY = pg.mouse.get_pos()
+        screen = pg.display.set_mode((672, 672))
+        screen.blit(pg.image.load(Path('assets', 'howtoplay_screen4.png')), (0, 0))
+
+        Button.draw(botao_menu, screen)
+        Button.hoover(botao_menu, mouseX, mouseY)
+
+        for event in pg.event.get():
+                    if event.type == pg.QUIT:
+                        pg.quit()
+                        sys.exit()
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if Button.verifica_clique(botao_menu, mouseX, mouseY) == True:
+                            menu_screen()
+
+        pg.display.flip()
+
+
+
 
 def preview_jogo():
 
@@ -189,6 +233,8 @@ def preview_jogo():
 #Tela de Game Over
 def game_over():
 
+    #itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"] PONTUAÇÃO
+
     pg.init()
 
     pg.mixer.music.load(Path('assets','game_sounds','gameover_music.mp3'))
@@ -200,18 +246,24 @@ def game_over():
     
     botoes = []
 
-    botao_restart = Button(foto_botao_play, 336, 490, 'RESTART')
-    botao_menu = Button(foto_botao_play, 336, 590, 'RETURN TO MENU')
+    botao_restart = Button(foto_botao_play, 336, 520, 'RESTART')
+    botao_menu = Button(foto_botao_play, 336, 620, 'MENU')
 
     botoes.append(botao_restart)
     botoes.append(botao_menu)
 
-    text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para          entrar no buraco de minhoca e tentar derrotá-los novamente!'
+    #Esse texto foi inserido no próprio background
+    #text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para          entrar no buraco de minhoca e tentar derrotá-los novamente!'
     
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
         screen = pg.display.set_mode((672, 672))
-        screen.blit(pg.image.load(Path('assets', 'background_gameover.png')), (0, 0))
+    
+        screen.blit(pg.image.load(Path('assets', 'gameover_screen.png')), (0, 0)) #Background com título e texto já incorporados
+
+        text_points = title_font.render('Pontuação:', True, 'Blue')
+        screen.blit(text_points, (200, 245))
+
         pg.display.set_caption('Game Over')
 
 
@@ -219,13 +271,6 @@ def game_over():
             Button.draw(botao, screen)
         for botao in botoes:
             Button.hoover(botao, mouseX, mouseY)
-
-        #Texto da tela de Game Over
-        texto_bloco(screen, text_gameover, (20, 300), text_font, 'White')
-
-        #Texto que mostra a pontuação final
-        # pontos = font_points.render('Pontuação:', True, 'Blue')
-        # screen.blit(pontos,(170,250))
 
         for event in pg.event.get():
                 if event.type == pg.QUIT:
