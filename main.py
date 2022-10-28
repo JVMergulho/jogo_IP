@@ -143,10 +143,22 @@ def main():
                     'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
                 bug = Bug(x, y)
                 all_bugs.append(bug)
-
+        #desenha os bugs e impede a sobreposição dos bugs
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player, identificar_posicao_bug)
+            lista_aux = all_bugs[:]
+            lista_aux.remove(um_bug)
+            for i in lista_aux:
+                if um_bug.rect.colliderect(i.rect) is True:
+                    if um_bug.x < i.x:
+                        um_bug.x -= 10
+                    elif um_bug.x > i.x:
+                        um_bug.x += 10
+                    if um_bug.y > i.y:
+                        um_bug.y += 10
+                    elif um_bug.y < i.y:
+                        um_bug.y -= 10
 
         # Destruindo os projéteis e os bugs quando entram em colisão
         remove_bullets = []
