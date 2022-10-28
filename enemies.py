@@ -2,7 +2,7 @@
 import pygame as pg
 from pathlib import Path
 from player import Player
-
+from lives import Lives
 # Essa é classe dos inimigos
 
 class Bug():
@@ -28,7 +28,7 @@ class Bug():
     # Também, se o player for atacado, faz o player se mover para a direção contrária da direção que o inimigo atacou
     # a condição do abs previne que o bug tente sincronizar infinitamente com o player
     def update(self, player, identificar_posicao_bug):
-
+        
         # Checa se o inimigo está colidindo com o player ou não
         if self.rect.colliderect(player.rect) is False:    
             if player.x < self.x and abs(player.x - self.x) > 5:
@@ -56,7 +56,7 @@ class Bug():
                 identificar_posicao_bug['em cima'] = False
                 identificar_posicao_bug['embaixo'] = False
         
-        else: 
+        else:
             if identificar_posicao_bug['esquerda']: 
                 if player.x < 30:
                     player.x= 678 +(player.x-40)
@@ -83,3 +83,4 @@ class Bug():
 
     def trace(self, screen): #desenho do bug
         screen.blit(self.image, self.rect)
+    
