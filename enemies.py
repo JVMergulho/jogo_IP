@@ -3,6 +3,7 @@ import pygame as pg
 from pathlib import Path
 from player import Player
 from lives import Lives
+import math
 # Essa é classe dos inimigos
 
 class Bug():
@@ -83,4 +84,9 @@ class Bug():
 
     def trace(self, screen): #desenho do bug
         screen.blit(self.image, self.rect)
-    
+    def vel(self,itens_coletados):
+        pontuacao = ((itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"])
+        if 50<= pontuacao <=100:
+            self.vel=4
+        elif 100<=pontuacao:
+            self.vel =5

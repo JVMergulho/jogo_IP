@@ -158,18 +158,20 @@ def main():
                     'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
                 bug = Bug(x, y)
                 all_bugs.append(bug)
-
+                
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player, identificar_posicao_bug)
+        
+            Bug.vel(um_bug,itens_coletados)
             live_points.update_vida(player,um_bug)
 
-        # Destruindo os projéteis e os bugs quando entram em colisão
+        # Destruindo os projéteis e os bugs quando entram em colisãoAWW
         remove_bullets = []
         remove_bugs = []
         for bala in all_bullets:
             bala.destroy = False
-            # Condicional para o projétil ser removido quando off-screen
+            # Condicional para o projétil ser A quando off-screen
             if (bala.rect.x < 0 or bala.rect.x > width) or (bala.rect.y < 0 or bala.rect.y > height):
                 all_bullets.remove(bala)
                 print('removi bala')
@@ -234,7 +236,7 @@ def main():
                         overdose=True
                         itens_coletados['energy_drink']=0  
                     timer=0
-                    
+            
                     
                     
                     

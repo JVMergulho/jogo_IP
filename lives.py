@@ -1,6 +1,5 @@
 import pygame as pg
 from pathlib import Path
-from enemies import Bug
 from player import Player
 import sys
 from item import Item
