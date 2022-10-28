@@ -221,4 +221,4 @@ def main():
 
 
 if __name__ == '__main__':
-    menu_screen()
+    game_over()

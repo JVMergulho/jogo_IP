@@ -81,6 +81,7 @@ pg.font.init()
 title_font = pg.font.SysFont('rage', 55)
 names_font = pg.font.SysFont('rage', 30)
 text_font = pg.font.SysFont('Arial', 25)
+font_points = pg.font.Font('freesansbold.ttf', 32) #Fonte que vai mostrar a pontuação final do jogador
 def story_screen():
 
     pg.init()
@@ -182,4 +183,60 @@ def preview_jogo():
                 main()
 
     
+        pg.display.flip()
+
+
+#Tela de Game Over
+def game_over():
+
+    pg.init()
+
+    pg.mixer.music.load(Path('assets','game_sounds','gameover_music.mp3'))
+    pg.mixer.music.set_volume(0.7)
+    pg.mixer.music.play(-1)
+
+    foto_botao_play = pg.image.load(Path('assets','button4.png'))
+    foto_botao_play = pg.transform.scale(foto_botao_play, (250, 100))
+    
+    botoes = []
+
+    botao_restart = Button(foto_botao_play, 336, 490, 'RESTART')
+    botao_menu = Button(foto_botao_play, 336, 590, 'RETURN TO MENU')
+
+    botoes.append(botao_restart)
+    botoes.append(botao_menu)
+
+    text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para          entrar no buraco de minhoca e tentar derrotá-los novamente!'
+    
+    while True:
+        mouseX, mouseY = pg.mouse.get_pos()
+        screen = pg.display.set_mode((672, 672))
+        screen.blit(pg.image.load(Path('assets', 'background_gameover.png')), (0, 0))
+        pg.display.set_caption('Game Over')
+
+
+        for botao in botoes:
+            Button.draw(botao, screen)
+        for botao in botoes:
+            Button.hoover(botao, mouseX, mouseY)
+
+        #Texto da tela de Game Over
+        texto_bloco(screen, text_gameover, (20, 300), text_font, 'White')
+
+        #Texto que mostra a pontuação final
+        # pontos = font_points.render('Pontuação:', True, 'Blue')
+        # screen.blit(pontos,(170,250))
+
+        for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit()
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    for botao in botoes:
+                        if Button.verifica_clique(botao, mouseX, mouseY) == True:
+                            if botao == botao_restart:
+                                preview_jogo()
+                            elif botao == botao_menu:
+                                menu_screen()
+        
         pg.display.flip()
