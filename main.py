@@ -100,21 +100,35 @@ def main():
     contador = 0
     gradacao = 0
     # variavel para nao permitir atirar varias vezes ao mesmo tempo
-    cooldown = 15
-
+    cooldown = 0
+    # Variavel para controlar se o energético está ativado
+    energy=False
+    # Variavel para controlar o tempo de uso do energético
+    timer = 100
+    #Variavel para controlar se o contador de energéticos chegou a 3
+    overdose=False
     while True:
-        cooldown += 1  # esfriar o inseticida
-
+        cooldown -= 1  # esfriar o inseticida
+        timer +=1 
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
             #
-            if event.type == pg.MOUSEBUTTONDOWN and cooldown >= 12:
+            if event.type == pg.MOUSEBUTTONDOWN and cooldown <= 0:
                 bala = Projectile(player)
                 all_bullets.append(bala)
-                cooldown = 0
-
+                if timer >=60 and overdose==False:
+                    energy= False
+                elif timer>= 90 and overdose==True:
+                    energy=False 
+                    overdose=False
+                if energy ==False:
+                  cooldown = 12
+                elif energy == True and timer<=30 and overdose==False :
+                    cooldown = -1
+                elif energy == True and overdose==True:
+                    cooldown= 30
                 spray_sound.play()
 
         #
@@ -214,7 +228,16 @@ def main():
                 print(coletado)
                 if coletado == "coffee":
                     live_points.vida_adicionar(player,i)
-
+                if coletado == "energy_drink":
+                    energy=True
+                    if itens_coletados['energy_drink']>=3:
+                        overdose=True
+                        itens_coletados['energy_drink']=0  
+                    timer=0
+                    
+                    
+                    
+                    
         # Desenha a vida na tela
         live_points.draw()
         pg.display.flip()

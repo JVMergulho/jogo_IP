@@ -12,7 +12,7 @@ class Lives(pg.sprite.Sprite):
         self.image = pg.image.load(Path('assets', 'cafe.gif'))
         self.image = pg.transform.scale(self.image, (40, 35))
         self.screen = win
-
+        self.time = 0
     def draw(self):
             
     
@@ -20,8 +20,10 @@ class Lives(pg.sprite.Sprite):
             self.screen.blit(self.image, (20 + i*30, 20))
     def update_vida(self,player,Bug):
          colisao_vida=False
-         if player.rect.colliderect(Bug.rect) is True: 
+         self.time-=1
+         if player.rect.colliderect(Bug.rect) is True and self.time<=0: 
             self.qtd-=1
+            self.time=60
             colisao_vida=True
          if self.qtd == 0:
             pg.quit()
