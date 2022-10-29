@@ -87,12 +87,12 @@ def texto_bloco(screen, texto, posicao, fonte, cor):
     
 
 
-
+# Fontes
 pg.font.init()
 title_font = pg.font.SysFont('rage', 55)
 names_font = pg.font.SysFont('rage', 30)
 text_font = pg.font.SysFont('Arial', 25)
-font_points = pg.font.Font('freesansbold.ttf', 32) #Fonte que vai mostrar a pontuação final do jogador
+points_font = pg.font.SysFont('monospace', 50) #Fonte que vai mostrar a pontuação final do jogador
 
 
 def story_screen():
@@ -108,30 +108,32 @@ def story_screen():
     foto_bug = pg.image.load(Path('assets','bug_simples.png'))
     foto_bug = pg.transform.scale(foto_bug, (65, 65))
 
-    botao_menu = Button(foto_botao, 336, 586, 'MENU')
+    botao_menu = Button(foto_botao, 336, 635, 'MENU')
 
     texto = '   Uma bela noite, um programador do CIn estava em um grad desenvolvendo um sistema de software, quando seu código começou a apresentar um comportamento inesperado. Por mais que ele tentasse, não conseguiu se livrar dos malditos bugs. Quando estava próximo de desistir, uma figura misteriosa surgiu: Silvio-sensei, mestre das artes místicas da computação. Silvio sugeriu a seguinte estratégia: Alcançar o ciberespaço (viajando através do R5) e, assim, derrotar os bugs no mano a mano, usando, para isso, um inseticida computacional.'
 
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
         screen = pg.display.set_mode((672, 672))
-        screen.blit(pg.image.load(Path('assets', 'background_story.png')), (0, 0))
+        #screen.blit(pg.image.load(Path('assets', 'background_story.png')), (0, 0))
+        #Background image com título, texto e imagens já incorporados
+        screen.blit(pg.image.load(Path('assets', 'story_screen3.png')), (0, 0))
         pg.display.set_caption('Story')
 
 
         Button.draw(botao_menu, screen)
         Button.hoover(botao_menu, mouseX, mouseY)
 
-        text_title = title_font.render('A história de Silvio-sensei', True, (89, 5, 110))
-        texto_bloco(screen, texto, (20, 100), text_font, (255, 255, 255))
-        screen.blit(text_title, (75, 20))
+        # text_title = title_font.render('A história de Silvio-sensei', True, (89, 5, 110))
+        # texto_bloco(screen, texto, (20, 100), text_font, (255, 255, 255))
+        # screen.blit(text_title, (75, 20))
         
-        nome_silvio = names_font.render('Silvio-sensei', True, (255, 255, 255))
-        nome_bug = names_font.render('Bug', True, (255, 255, 255))
-        screen.blit(foto_silvio, (175, 385))
-        screen.blit(foto_bug, (430, 394))
-        screen.blit(nome_silvio, (150, 461))
-        screen.blit(nome_bug, (438, 461))
+        # nome_silvio = names_font.render('Silvio-sensei', True, (255, 255, 255))
+        # nome_bug = names_font.render('Bug', True, (255, 255, 255))
+        # screen.blit(foto_silvio, (175, 385))
+        # screen.blit(foto_bug, (430, 394))
+        # screen.blit(nome_silvio, (150, 461))
+        # screen.blit(nome_bug, (438, 461))
 
 
 
@@ -147,9 +149,8 @@ def story_screen():
 
         pg.display.flip()
 
-
+# How to play screen
 def instruction_screen():
-
     pg.init()
 
     foto_botao = pg.image.load(Path('assets','button4.png'))
@@ -160,7 +161,7 @@ def instruction_screen():
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
         screen = pg.display.set_mode((672, 672))
-        screen.blit(pg.image.load(Path('assets', 'howtoplay_screen4.png')), (0, 0))
+        screen.blit(pg.image.load(Path('assets', 'howtoplay_screen6.png')), (0, 0))
 
         Button.draw(botao_menu, screen)
         Button.hoover(botao_menu, mouseX, mouseY)
@@ -246,12 +247,14 @@ def game_over():
     
     botoes = []
 
-    botao_restart = Button(foto_botao_play, 336, 520, 'RESTART')
-    botao_menu = Button(foto_botao_play, 336, 620, 'MENU')
+    botao_restart = Button(foto_botao_play, 336, 550, 'RESTART')
+    botao_menu = Button(foto_botao_play, 336, 630, 'MENU')
 
     botoes.append(botao_restart)
     botoes.append(botao_menu)
 
+    text_points = points_font.render('Pontuação: ', True, 'White')
+    text_points_rect = text_points.get_rect(midtop=(336, 260))
     #Esse texto foi inserido no próprio background
     #text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para          entrar no buraco de minhoca e tentar derrotá-los novamente!'
     
@@ -259,10 +262,9 @@ def game_over():
         mouseX, mouseY = pg.mouse.get_pos()
         screen = pg.display.set_mode((672, 672))
     
-        screen.blit(pg.image.load(Path('assets', 'gameover_screen.png')), (0, 0)) #Background com título e texto já incorporados
+        screen.blit(pg.image.load(Path('assets', 'gameover_screen2.png')), (0, 0)) #Background com título e texto já incorporados
+        screen.blit(text_points, text_points_rect)
 
-        text_points = title_font.render('Pontuação:', True, 'Blue')
-        screen.blit(text_points, (200, 245))
 
         pg.display.set_caption('Game Over')
 
