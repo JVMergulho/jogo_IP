@@ -152,6 +152,7 @@ def story_screen():
 # How to play screen
 def instruction_screen():
     pg.init()
+    pg.display.set_caption('How to Play')
 
     foto_botao = pg.image.load(Path('assets','button4.png'))
     foto_botao = pg.transform.scale(foto_botao, (250, 100))
@@ -231,6 +232,36 @@ def preview_jogo():
         pg.display.flip()
 
 
+#Tela de erro
+def error():
+
+    pg.init()
+
+    pg.mixer.music.load(Path('assets','game_sounds','error_sound.mp3'))
+    pg.mixer.music.set_volume(0.7)
+    pg.mixer.music.play()
+
+    counter = 0
+
+    while True:
+        screen = pg.display.set_mode((672, 672))
+        pg.display.set_caption('Game Over')
+        counter += 1
+
+        if counter < 150:
+            screen.blit(pg.image.load(Path('assets', 'error_screen.png')), (0, 0))
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit()
+
+        else:
+            game_over()
+    
+        pg.display.flip()
+
+
+
 #Tela de Game Over
 def game_over():
 
@@ -256,18 +287,16 @@ def game_over():
     text_points = points_font.render('Pontuação: ', True, 'White')
     text_points_rect = text_points.get_rect(midtop=(336, 260))
     #Esse texto foi inserido no próprio background
-    #text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para          entrar no buraco de minhoca e tentar derrotá-los novamente!'
+    #text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para entrar no buraco de minhoca e tentar derrotá-los novamente!'
     
+
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
         screen = pg.display.set_mode((672, 672))
-    
-        screen.blit(pg.image.load(Path('assets', 'gameover_screen2.png')), (0, 0)) #Background com título e texto já incorporados
-        screen.blit(text_points, text_points_rect)
-
-
         pg.display.set_caption('Game Over')
 
+        screen.blit(pg.image.load(Path('assets', 'gameover_screen3.png')), (0, 0)) #Background com título e texto já incorporados
+        screen.blit(text_points, text_points_rect)
 
         for botao in botoes:
             Button.draw(botao, screen)
