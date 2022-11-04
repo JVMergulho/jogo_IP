@@ -118,7 +118,7 @@ def main():
             if event.type == pg.MOUSEBUTTONDOWN and cooldown <= 0:
                 bala = Projectile(player)
                 all_bullets.append(bala)
-                if timer >=60 and overdose==False:
+                if timer >=150 and overdose==False:
                     energy= False
                 elif timer>= 90 and overdose==True:
                     energy=False 
@@ -128,7 +128,7 @@ def main():
                 elif energy == True and timer<=30 and overdose==False :
                     cooldown = -1
                 elif energy == True and overdose==True:
-                    cooldown= 30
+                    cooldown= 80
                 spray_sound.play()
 
         #
