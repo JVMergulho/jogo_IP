@@ -84,9 +84,22 @@ class Bug():
 
     def trace(self, screen): #desenho do bug
         screen.blit(self.image, self.rect)
-    def vel(self,itens_coletados):
+    #Altera a velocidade do bug de acordo com a pontuação    
+    
+    def vel(self,itens_coletados): 
         pontuacao = ((itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"])
-        if 50<= pontuacao <=100:
-            self.vel=4
-        elif 100<=pontuacao:
-            self.vel =5
+        if 30<= pontuacao <60:
+            self.vel= 4
+            
+        elif 60<=pontuacao< 90:
+            self.vel = 5
+            
+        elif 90<= pontuacao < 120:
+            self.vel = 6
+            
+        elif 120 <= pontuacao < 150:
+            self.vel = 7
+            
+        elif 150 <= pontuacao:
+            self.vel = 8
+        
