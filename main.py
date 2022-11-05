@@ -105,8 +105,6 @@ def main():
     energy=False
     # Variavel para controlar o tempo de uso do energético
     timer = 100
-    #Variavel para controlar se o contador de energéticos chegou a 3
-    overdose=False
     while True:
         cooldown -= 1  # esfriar o inseticida
         timer +=1 
@@ -129,7 +127,7 @@ def main():
               if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
                   energy=True
                   timer=0
-                  itens_coletados['energy_drink']-=3
+                  itens_coletados['energy_drink']=0
           
         for balas in all_bullets:  # movimento do gas na tela
             balas.projectile_move()
@@ -206,15 +204,23 @@ def main():
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
         text_pontuacao = font_game.render(
             f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, branco)
-
         screen.blit(text_pontuacao, (270, 10))
         screen.blit(pg.transform.scale(pg.image.load(
             Path('assets', 'bug_simples.png')), (40, 35)), (20, 105))
         screen.blit(text_bugs, (70, 115))
-
-        screen.blit(pg.transform.scale(pg.image.load(
-            Path('assets', 'energy_drink.png')), (35, 35)), (25, 65))
-        screen.blit(text_energy_drink, (70, 75))
+        if itens_coletados['energy_drink']==0:
+          screen.blit(pg.transform.scale(pg.image.load(
+              Path('assets', 'battery-0.png')), (90, 90)), (5, 35))
+        elif itens_coletados['energy_drink']==1:
+          screen.blit(pg.transform.scale(pg.image.load(
+              Path('assets', 'battery-1.png')), (90, 90)), (5, 35))
+        elif itens_coletados['energy_drink']==2:
+          screen.blit(pg.transform.scale(pg.image.load(
+              Path('assets', 'battery-2.png')), (90, 90)), (5, 35))
+        elif itens_coletados['energy_drink']==3:
+          screen.blit(pg.transform.scale(pg.image.load(
+              Path('assets', 'battery-3.png')), (90, 90)), (5, 35))
+        
 
         for balas in all_bullets:  # desenha o projetil gas na tela
             balas.trace(screen)
@@ -229,12 +235,6 @@ def main():
                 print(coletado)
                 if coletado == "coffee":
                     live_points.vida_adicionar(player,i)
-                #if coletado == "energy_drink":
-                   # energy=True
-                   # if itens_coletados['energy_drink']>=3:
-                   #     overdose=True
-                   #    itens_coletados['energy_drink']=0  
-                   # timer=0
             
                     
                     
