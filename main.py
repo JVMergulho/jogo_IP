@@ -206,20 +206,20 @@ def main():
             f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, branco)
         screen.blit(text_pontuacao, (270, 10))
         screen.blit(pg.transform.scale(pg.image.load(
-            Path('assets', 'bug_simples.png')), (40, 35)), (20, 105))
-        screen.blit(text_bugs, (70, 115))
+            Path('assets', 'bug_simples.png')), (40, 35)), (20, 65))
+        screen.blit(text_bugs, (70, 75))
         if itens_coletados['energy_drink']==0:
           screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-0.png')), (90, 90)), (5, 35))
+              Path('assets', 'battery-0.png')), (90, 90)), (5, 85))
         elif itens_coletados['energy_drink']==1:
           screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-1.png')), (90, 90)), (5, 35))
+              Path('assets', 'battery-1.png')), (90, 90)), (5, 85))
         elif itens_coletados['energy_drink']==2:
           screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-2.png')), (90, 90)), (5, 35))
-        elif itens_coletados['energy_drink']==3:
+              Path('assets', 'battery-2.png')), (90, 90)), (5, 85))
+        elif itens_coletados['energy_drink']>=3:
           screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-3.png')), (90, 90)), (5, 35))
+              Path('assets', 'battery-3.png')), (90, 90)), (5, 85))
         
 
         for balas in all_bullets:  # desenha o projetil gas na tela
