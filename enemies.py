@@ -2,7 +2,8 @@
 import pygame as pg
 from pathlib import Path
 from player import Player
-
+from lives import Lives
+import math
 # Essa é classe dos inimigos
 
 class Bug():
@@ -28,7 +29,7 @@ class Bug():
     # Também, se o player for atacado, faz o player se mover para a direção contrária da direção que o inimigo atacou
     # a condição do abs previne que o bug tente sincronizar infinitamente com o player
     def update(self, player, identificar_posicao_bug):
-
+        
         # Checa se o inimigo está colidindo com o player ou não
         if self.rect.colliderect(player.rect) is False:    
             if player.x < self.x and abs(player.x - self.x) > 5:
@@ -56,7 +57,7 @@ class Bug():
                 identificar_posicao_bug['em cima'] = False
                 identificar_posicao_bug['embaixo'] = False
         
-        else: 
+        else:
             if identificar_posicao_bug['esquerda']: 
                 if player.x < 30:
                     player.x= 678 +(player.x-40)
@@ -87,3 +88,22 @@ class Bug():
 
     def trace(self, screen): #desenho do bug
         screen.blit(self.image, self.rect)
+    #Altera a velocidade do bug de acordo com a pontuação    
+    
+    def vel(self,itens_coletados): 
+        pontuacao = ((itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"])
+        if 30<= pontuacao <60:
+            self.vel= 4
+            
+        elif 60<=pontuacao< 90:
+            self.vel = 5
+            
+        elif 90<= pontuacao < 120:
+            self.vel = 6
+            
+        elif 120 <= pontuacao < 150:
+            self.vel = 7
+            
+        elif 150 <= pontuacao:
+            self.vel = 8
+        

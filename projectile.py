@@ -40,3 +40,10 @@ class Projectile():
 
     def trace(self, screen): #desenho do gas
         screen.blit(self.image, self.rect)
+    def cooldown(player,cooldown,energy):
+        
+        if energy == False:
+            cooldown=12
+        elif energy == True:
+            cooldown = -1 
+        return cooldown
