@@ -19,18 +19,20 @@ class Lives(pg.sprite.Sprite):
          for i in range(self.qtd):
             self.screen.blit(self.image, (20 + i*30, 20))
     def update_vida(self,player,Bug):
-         colisao_vida=False
-         self.time-=1
-         if player.rect.colliderect(Bug.rect) is True and self.time<=0: 
+        colisao_vida=False
+        self.time-=1
+        if player.rect.colliderect(Bug.rect) is True and self.time<=0: 
             self.qtd-=1
             self.time=60
             colisao_vida=True
-         if self.qtd == 0:
-            pg.quit()
-            sys.exit()
-         return colisao_vida
+        # if self.qtd == 0:
+        #     pg.quit()
+        #     sys.exit()
+        return colisao_vida
     def vida_adicionar(self,player,item):
          if player.rect.colliderect(item.rect) is True and self.qtd<=3:
              self.qtd+=1
              
-             
+    def parar_jogo(self):
+        if self.qtd == 0:
+            return True

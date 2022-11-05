@@ -109,6 +109,7 @@ def main():
     #Variavel para controlar se o contador de energéticos chegou a 3
     overdose=False
     while True:
+        from menu import Screens
         cooldown -= 1  # esfriar o inseticida
         timer +=1 
         for event in pg.event.get():
@@ -238,8 +239,8 @@ def main():
                         itens_coletados['energy_drink']=0  
                     timer=0
             
-                    
-                    
+        if Lives.parar_jogo(live_points):
+            Screens.error()
                     
         # Desenha a vida na tela
         live_points.draw()
@@ -249,4 +250,4 @@ def main():
         
 
 if __name__ == '__main__':
-    error()
+    Screens.menu_screen()
