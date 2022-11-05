@@ -116,22 +116,21 @@ def main():
                 sys.exit()
             #
             if event.type == pg.MOUSEBUTTONDOWN and cooldown <= 0:
+                
+
                 bala = Projectile(player)
                 all_bullets.append(bala)
-                if timer >=150 and overdose==False:
-                    energy= False
-                elif timer>= 90 and overdose==True:
-                    energy=False 
-                    overdose=False
-                if energy ==False:
-                  cooldown = 12
-                elif energy == True and timer<=30 and overdose==False :
-                    cooldown = -1
-                elif energy == True and overdose==True:
-                    cooldown= 80
+                cooldown = bala.cooldown(cooldown,energy)
+                if energy == True and timer>=150:
+                    energy = False
+                    
                 spray_sound.play()
-
-        #
+            if event.type == pg.KEYDOWN:
+              if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
+                  energy=True
+                  timer=0
+                  itens_coletados['energy_drink']-=3
+          
         for balas in all_bullets:  # movimento do gas na tela
             balas.projectile_move()
 
@@ -230,12 +229,12 @@ def main():
                 print(coletado)
                 if coletado == "coffee":
                     live_points.vida_adicionar(player,i)
-                if coletado == "energy_drink":
-                    energy=True
-                    if itens_coletados['energy_drink']>=3:
-                        overdose=True
-                        itens_coletados['energy_drink']=0  
-                    timer=0
+                #if coletado == "energy_drink":
+                   # energy=True
+                   # if itens_coletados['energy_drink']>=3:
+                   #     overdose=True
+                   #    itens_coletados['energy_drink']=0  
+                   # timer=0
             
                     
                     
