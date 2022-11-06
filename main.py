@@ -103,34 +103,39 @@ def main():
     # variavel para nao permitir atirar varias vezes ao mesmo tempo
     cooldown = 0
     # Variavel para controlar se o energético está ativado
-    energy=False
+    energy = False
     # Variavel para controlar o tempo de uso do energético
     timer = 100
-    
+
+    # coordenada x das nuvens
+    clouds_x = 0
+
+    # comprimento da tela
+    width = 672
+
     while True:
         from menu import Screens
         cooldown -= 1  # esfriar o inseticida
-        timer +=1 
+        timer += 1
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
             #
             if event.type == pg.MOUSEBUTTONDOWN and cooldown <= 0:
-                
+
                 bala = Projectile(player)
                 all_bullets.append(bala)
-                cooldown = bala.cooldown(cooldown,energy)
-                if energy == True and timer>=150:
+                cooldown = bala.cooldown(cooldown, energy)
+                if energy == True and timer >= 150:
                     energy = False
-                    
+
                 spray_sound.play()
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_SPACE and itens_coletados['energy_drink']>=3:
-                    energy=True
-                    timer=0
-                    itens_coletados['energy_drink']=0
-          
+                if event.key == pg.K_SPACE and itens_coletados['energy_drink'] >= 3:
+                    energy = True
+                    timer = 0
+                    itens_coletados['energy_drink'] = 0
 
         #
         for balas in all_bullets:  # movimento do gas na tela
@@ -138,6 +143,12 @@ def main():
 
         # Faz o background aparecer
         screen.blit(pg.image.load(Path('assets', 'background.png')), (0, 0))
+
+        # Faz a animação das nuvens
+        screen.blit(pg.image.load(Path('assets', 'clouds.png')), (clouds_x, 0))
+        if (clouds_x >= width):
+            clouds_x = -width
+        clouds_x += 3
 
         all_items.draw(screen)
         all_sprites.draw(screen)
@@ -159,7 +170,7 @@ def main():
                     'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
                 bug = Bug(x, y)
                 all_bugs.append(bug)
-        #desenha os bugs e impede a sobreposição dos bugs
+        # desenha os bugs e impede a sobreposição dos bugs
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player, identificar_posicao_bug)
@@ -175,9 +186,9 @@ def main():
                         um_bug.y += 10
                     elif um_bug.y < i.y:
                         um_bug.y -= 10
-        
-            Bug.vel(um_bug,itens_coletados)
-            live_points.update_vida(player,um_bug)
+
+            Bug.vel(um_bug, itens_coletados)
+            live_points.update_vida(player, um_bug)
 
         # Destruindo os projéteis e os bugs quando entram em colisãoAWW
         remove_bullets = []
@@ -218,7 +229,8 @@ def main():
         text_bugs = font_game.render(
             f'X {itens_coletados["bugs"]}', 1, branco)
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
-        pontos = (itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]
+        pontos = (
+            itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]
         text_pontuacao = font_game.render(
             f'Pontuação: {pontos}', 1, branco)
 
@@ -226,19 +238,18 @@ def main():
         screen.blit(pg.transform.scale(pg.image.load(
             Path('assets', 'bug_simples.png')), (40, 35)), (20, 65))
         screen.blit(text_bugs, (70, 75))
-        if itens_coletados['energy_drink']==0:
-          screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-0.png')), (90, 90)), (5, 85))
-        elif itens_coletados['energy_drink']==1:
-          screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-1.png')), (90, 90)), (5, 85))
-        elif itens_coletados['energy_drink']==2:
-          screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-2.png')), (90, 90)), (5, 85))
-        elif itens_coletados['energy_drink']>=3:
-          screen.blit(pg.transform.scale(pg.image.load(
-              Path('assets', 'battery-3.png')), (90, 90)), (5, 85))
-        
+        if itens_coletados['energy_drink'] == 0:
+            screen.blit(pg.transform.scale(pg.image.load(
+                Path('assets', 'battery-0.png')), (90, 90)), (5, 85))
+        elif itens_coletados['energy_drink'] == 1:
+            screen.blit(pg.transform.scale(pg.image.load(
+                Path('assets', 'battery-1.png')), (90, 90)), (5, 85))
+        elif itens_coletados['energy_drink'] == 2:
+            screen.blit(pg.transform.scale(pg.image.load(
+                Path('assets', 'battery-2.png')), (90, 90)), (5, 85))
+        elif itens_coletados['energy_drink'] >= 3:
+            screen.blit(pg.transform.scale(pg.image.load(
+                Path('assets', 'battery-3.png')), (90, 90)), (5, 85))
 
         for balas in all_bullets:  # desenha o projetil gas na tela
             balas.trace(screen)
@@ -252,18 +263,17 @@ def main():
                 item_sound.play()  # Efeito sonoro da coleta de item
                 print(coletado)
                 if coletado == "coffee":
-                    live_points.vida_adicionar(player,i)
-                
-            
+                    live_points.vida_adicionar(player, i)
+
         if Lives.parar_jogo(live_points):
             Screens.error(pontos)
-                    
+
         # Desenha a vida na tela
         live_points.draw()
         pg.display.flip()
         clock.tick(30)
         contador += 1
-        
+
 
 if __name__ == '__main__':
     Screens.menu_screen()
