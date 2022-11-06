@@ -215,7 +215,7 @@ def main():
                             try:
                                 remove_bugs.append(um_bug)
                             except ValueError:
-                                pass
+                                print('Consegui lidar com o erro, chefia')
 
                         itens_coletados['bugs'] += 1
 
