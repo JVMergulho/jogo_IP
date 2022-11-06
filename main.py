@@ -191,8 +191,7 @@ def main():
             live_points.update_vida(player, um_bug)
 
         # Destruindo os projéteis e os bugs quando entram em colisãoAWW
-        remove_bullets = []
-        remove_bugs = []
+
         for bala in all_bullets:
             bala.destroy = False
             # Condicional para o projétil ser A quando off-screen
@@ -206,40 +205,23 @@ def main():
                         bala.destroy = True
                         um_bug.destroy = True
 
-                        if bala not in remove_bullets:
-                            try:
-                                remove_bullets.append(bala)
-                            except ValueError:
-                                pass
-                        if um_bug not in remove_bugs:
-                            try:
-                                remove_bugs.append(um_bug)
-                            except ValueError:
-                                print('Consegui lidar com o erro, chefia')
+                        if bala in all_bullets:
 
-                        itens_coletados['bugs'] += 1
+                            all_bullets.remove(bala)
 
-        for bala in remove_bullets:
-            try:
-                all_bullets.remove(bala)
-            except ValueError:
-                print('Consegui lidar com o erro, chefia')
-                pass
+                        if um_bug in all_bugs:
 
-        for um_bug in remove_bugs:
-            try:
-                all_bugs.remove(um_bug)
-                morte_bug_sound.play()  # Efeito sonoro da coleta de item
+                            all_bugs.remove(um_bug)
+                            itens_coletados['bugs'] += 1
 
-                # Tem uma chance de gerar um item no lugar onde o bug morre
-                if random.randint(0, 2) == 1:
-                    gerar_itens(itens_lista, all_items, player, um_bug.x, um_bug.y)
-            except:
-                print('Consegui lidar com o erro, chefia')
-                pass
+                            morte_bug_sound.play()  # Efeito sonoro da coleta de item
+
+                            # Tem uma chance de gerar um item no lugar onde o bug morre
+                            if random.randint(0, 2) == 1:
+                                gerar_itens(itens_lista, all_items,
+                                            player, um_bug.x, um_bug.y)
+
         # Inserir os itens coletados,bugs mortos e a pontuação na tela
-        text_energy_drink = font_game.render(
-            f'X {itens_coletados["energy_drink"]}', 1, branco)
         text_bugs = font_game.render(
             f'X {itens_coletados["bugs"]}', 1, branco)
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
