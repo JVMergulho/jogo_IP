@@ -106,8 +106,7 @@ def main():
     energy=False
     # Variavel para controlar o tempo de uso do energético
     timer = 100
-    #Variavel para controlar se o contador de energéticos chegou a 3
-    overdose=False
+    
     while True:
         from menu import Screens
         cooldown -= 1  # esfriar o inseticida
@@ -126,11 +125,11 @@ def main():
                     energy = False
                     
                 spray_sound.play()
-                if event.type == pg.KEYDOWN:
-                   if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
-                     energy=True
-                     timer=0
-                     itens_coletados['energy_drink']=0
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
+                    energy=True
+                    timer=0
+                    itens_coletados['energy_drink']=0
           
 
         #
