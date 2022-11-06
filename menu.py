@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 from main import main
 from time import sleep, time
+from lives import Lives
 
 class Screens():
     def menu_screen():
@@ -60,8 +61,6 @@ class Screens():
                             elif botao == botao_htp:
                                 Screens.instruction_screen()
 
-            #if clock > 3000:
-            #    main()
 
 
             pg.display.flip()
@@ -193,25 +192,22 @@ class Screens():
             screen = pg.display.set_mode((672, 672))
             screen.fill((255, 255, 255))
             screen.blit(pg.image.load(Path('assets', 'background.png')), (0, 0))
+            
+            live_points = Lives(screen)
+            live_points.draw()
 
-            text_coffee = font_game.render(
-                f'X {itens_coletados["coffee"]}', 1, (255, 255, 255))
-            text_energy_drink = font_game.render(
-                f'X {itens_coletados["energy_drink"]}', 1, (255, 255, 255))
-            text_bugs = font_game.render(
-                f'X {itens_coletados["bugs"]}', 1, (255, 255, 255))
+            
+
             text_pontuacao = font_game.render(
                 f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, (255, 255, 255))
 
             screen.blit(text_pontuacao, (270, 10))
-            screen.blit(pg.transform.scale(pg.image.load(Path('assets','bug_simples.png')), (40, 35)), (20, 105))
-            screen.blit(text_bugs, (70, 115))
 
-            screen.blit(pg.transform.scale(pg.image.load(Path('assets', 'cafe.gif')), (40, 35)), (20, 20))
-            screen.blit(text_coffee, (70, 35))
+            screen.blit(pg.transform.scale(pg.image.load(Path('assets','bug_simples.png')), (40, 35)), (20, 65))
 
-            screen.blit(pg.transform.scale(pg.image.load(Path('assets', 'energy_drink.png')), (35, 35)), (25, 65))
-            screen.blit(text_energy_drink, (70, 75))
+            screen.blit(pg.transform.scale(pg.image.load(Path('assets', 'battery-0.png')), (90, 90)), (5, 85))
+
+
 
             mensagem = font_game_2.render('APERTE EM QUALQUER LUGAR DA TELA PARA COMEÇAR', True, (0, 0, 0))
             screen.blit(mensagem, (80, 336))
