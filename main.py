@@ -126,7 +126,7 @@ def main():
                     
                 spray_sound.play()
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
+                if event.key == pg.K_SPACE and itens_coletados['energy_drink']>=3:
                     energy=True
                     timer=0
                     itens_coletados['energy_drink']=0
