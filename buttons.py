@@ -1,8 +1,9 @@
 import pygame as pg
 import sys
+from pathlib import Path
 
 pg.font.init()
-button_font = pg.font.SysFont('Onyx', 45)
+button_font = pg.font.Font(Path('assets', 'ONYX.TTF'), 45)
 class Button():
     def __init__(self, imagem, centrox, centroy, texto):
         self.imagem = imagem

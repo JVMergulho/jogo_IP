@@ -83,8 +83,8 @@ def texto_bloco(screen, texto, posicao, fonte, cor):
 
 # Fontes
 pg.font.init()
-title_font = pg.font.SysFont('rage', 55)
-names_font = pg.font.SysFont('rage', 30)
+title_font = pg.font.Font(Path('assets', 'RAGE.TTF'), 55)
+names_font = pg.font.Font(Path('assets', 'RAGE.TTF'), 30)
 text_font = pg.font.SysFont('Arial', 25)
 points_font = pg.font.SysFont('monospace', 50) #Fonte que vai mostrar a pontuação final do jogador
 
@@ -179,7 +179,7 @@ def preview_jogo():
     screen = pg.display.set_mode((672, 672))
     font = pg.font.get_default_font()
     font_game = pg.font.SysFont(font, 30)
-    font_game_2 = pg.font.SysFont('Onyx', 38)
+    font_game_2 = pg.font.Font(Path('assets', 'ONYX.TTF'), 38)
 
     itens_coletados = {'coffee': 0,
                     'energy_drink': 0,
