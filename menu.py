@@ -3,7 +3,6 @@ from buttons import Button
 from pathlib import Path
 import sys
 from main import main
-from time import sleep, time
 from lives import Lives
 
 class Screens():

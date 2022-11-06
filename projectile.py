@@ -1,7 +1,6 @@
 import pygame as pg
 from pathlib import Path
 import math
-from player import Player
 
 #Essa é a classe responsavel pelos projéteis
 

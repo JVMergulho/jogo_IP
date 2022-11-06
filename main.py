@@ -8,9 +8,8 @@ from enemies import Bug
 from random import choice
 from item import *
 from projectile import Projectile
-import math
 from lives import Lives
-from menu import *
+import menu
 
 
 def gerar_itens(itens_lista, all_items, player, x, y):
@@ -110,11 +109,7 @@ def main():
     # coordenada x das nuvens
     clouds_x = 0
 
-    # comprimento da tela
-    width = 672
-
     while True:
-        from menu import Screens
         cooldown -= 1  # esfriar o inseticida
         timer += 1
         for event in pg.event.get():
@@ -262,7 +257,7 @@ def main():
                     live_points.vida_adicionar(player, i)
 
         if Lives.parar_jogo(live_points):
-            Screens.error(pontos)
+            menu.Screens.error(pontos)
 
         # Desenha a vida na tela
         live_points.draw()
@@ -272,4 +267,4 @@ def main():
 
 
 if __name__ == '__main__':
-    Screens.menu_screen()
+    menu.Screens.menu_screen()

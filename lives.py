@@ -1,8 +1,6 @@
 import pygame as pg
 from pathlib import Path
-from player import Player
-import sys
-from item import Item
+
 #Classe que controla a vida do player
 class Lives(pg.sprite.Sprite):
 

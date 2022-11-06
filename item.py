@@ -1,5 +1,4 @@
 import pygame as pg
-import random
 
 
 class Item(pg.sprite.Sprite):
