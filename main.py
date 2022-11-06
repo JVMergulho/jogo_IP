@@ -196,9 +196,15 @@ def main():
                         um_bug.destroy = True
 
                         if bala not in remove_bullets:
-                            remove_bullets.append(bala)
+                            try:
+                                remove_bullets.append(bala)
+                            except ValueError:
+                                pass
                         if um_bug not in remove_bugs:
-                            remove_bugs.append(um_bug)
+                            try:
+                                remove_bugs.append(um_bug)
+                            except ValueError:
+                                pass
 
                         itens_coletados['bugs'] += 1
 
