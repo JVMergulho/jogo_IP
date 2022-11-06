@@ -29,16 +29,12 @@ class Screens():
         botoes.append(botao_htp)
         botoes.append(botao_quit)
 
-        #clock = pg.time.Clock()
-        #time_counter = 0
         
         while True:
             mouseX, mouseY = pg.mouse.get_pos()
             screen = pg.display.set_mode((672, 672))
             screen.blit(pg.image.load(Path('assets', 'background_menu.png')), (0, 0))
             pg.display.set_caption('Menu')
-
-            #time_counter += clock 
 
             for botao in botoes:
                 Button.draw(botao, screen)
@@ -115,7 +111,6 @@ class Screens():
         while True:
             mouseX, mouseY = pg.mouse.get_pos()
             screen = pg.display.set_mode((672, 672))
-            #screen.blit(pg.image.load(Path('assets', 'background_story.png')), (0, 0))
             #Background image com título, texto e imagens já incorporados
             screen.blit(pg.image.load(Path('assets', 'story_screen3.png')), (0, 0))
             pg.display.set_caption('Story')
@@ -162,7 +157,7 @@ class Screens():
         while True:
             mouseX, mouseY = pg.mouse.get_pos()
             screen = pg.display.set_mode((672, 672))
-            screen.blit(pg.image.load(Path('assets', 'howtoplay_screen6.png')), (0, 0))
+            screen.blit(pg.image.load(Path('assets', 'howtoplay_screen7.png')), (0, 0))
 
             Button.draw(botao_menu, screen)
             Button.hoover(botao_menu, mouseX, mouseY)
@@ -233,7 +228,7 @@ class Screens():
 
 
     #Tela de erro
-    def error():
+    def error(pontos):
 
         pg.init()
 
@@ -256,16 +251,14 @@ class Screens():
                         sys.exit()
 
             else:
-                Screens.game_over()
+                Screens.game_over(pontos)
         
             pg.display.flip()
 
 
 
     #Tela de Game Over
-    def game_over():
-
-        #itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"] PONTUAÇÃO
+    def game_over(pontos):
 
         pg.init()
 
@@ -284,7 +277,7 @@ class Screens():
         botoes.append(botao_restart)
         botoes.append(botao_menu)
 
-        text_points = Screens.points_font.render('Pontuação: ', True, 'White')
+        text_points = Screens.points_font.render(f'Pontuação:{pontos}', True, 'White')
         text_points_rect = text_points.get_rect(midtop=(336, 260))
         #Esse texto foi inserido no próprio background
         #text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para entrar no buraco de minhoca e tentar derrotá-los novamente!'

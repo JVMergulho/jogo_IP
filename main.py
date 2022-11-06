@@ -207,8 +207,9 @@ def main():
         text_bugs = font_game.render(
             f'X {itens_coletados["bugs"]}', 1, branco)
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
+        pontos = (itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]
         text_pontuacao = font_game.render(
-            f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, branco)
+            f'Pontuação: {pontos}', 1, branco)
 
         screen.blit(text_pontuacao, (270, 10))
         screen.blit(pg.transform.scale(pg.image.load(
@@ -240,7 +241,7 @@ def main():
                     timer=0
             
         if Lives.parar_jogo(live_points):
-            Screens.error()
+            Screens.error(pontos)
                     
         # Desenha a vida na tela
         live_points.draw()
