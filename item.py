@@ -42,16 +42,18 @@ class Item(pg.sprite.Sprite):
 
             self.itens_lista.remove(self)
 
-        # Caso o player toque no item
-        if self.rect.colliderect(self.player.rect):
-            try:
-                pg.sprite.Sprite.kill(self)
+        # Checa se o item não foi removido ainda
+        if self in self.itens_lista:
+            # Caso o player toque no item
+            if self.rect.colliderect(self.player.rect):
+                try:
+                    pg.sprite.Sprite.kill(self)
 
-                self.itens_lista.remove(self)
+                    self.itens_lista.remove(self)
 
-                return self.type
-            except ValueError:
-                print('Consegui lidar com o erro, chefia')
-                pass
-        else:
-            return None
+                    return self.type
+                except ValueError:
+                    print('Consegui lidar com o erro, chefia')
+                    pass
+            else:
+                return None
