@@ -9,6 +9,7 @@ from lives import Lives
 def menu_screen():
 
     pg.init()
+    screen = pg.display.set_mode((672, 672))
 
     pg.mixer.music.load(Path('assets','menu_sound.mp3'))
     pg.mixer.music.set_volume(0.7)
@@ -32,7 +33,6 @@ def menu_screen():
     
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
-        screen = pg.display.set_mode((672, 672))
         screen.blit(pg.image.load(Path('assets', 'background_menu.png')), (0, 0))
         pg.display.set_caption('Menu')
 
@@ -92,6 +92,7 @@ points_font = pg.font.SysFont('monospace', 50) #Fonte que vai mostrar a pontuaç
 def story_screen():
 
     pg.init()
+    screen = pg.display.set_mode((672, 672))
 
     foto_botao = pg.image.load(Path('assets','button4.png'))
     foto_botao = pg.transform.scale(foto_botao, (250, 100))
@@ -108,7 +109,6 @@ def story_screen():
 
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
-        screen = pg.display.set_mode((672, 672))
         #Background image com título, texto e imagens já incorporados
         screen.blit(pg.image.load(Path('assets', 'story_screen3.png')), (0, 0))
         pg.display.set_caption('Story')
@@ -145,6 +145,7 @@ def story_screen():
 # How to play screen
 def instruction_screen():
     pg.init()
+    screen = pg.display.set_mode((672, 672))
     pg.display.set_caption('How to Play')
 
     foto_botao = pg.image.load(Path('assets','button4.png'))
@@ -154,7 +155,6 @@ def instruction_screen():
 
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
-        screen = pg.display.set_mode((672, 672))
         screen.blit(pg.image.load(Path('assets', 'howtoplay_screen7.png')), (0, 0))
 
         Button.draw(botao_menu, screen)
@@ -176,6 +176,7 @@ def instruction_screen():
 def preview_jogo():
 
     pg.init()
+    screen = pg.display.set_mode((672, 672))
     font = pg.font.get_default_font()
     font_game = pg.font.SysFont(font, 30)
     font_game_2 = pg.font.SysFont('Onyx', 38)
@@ -188,7 +189,6 @@ def preview_jogo():
                     'bugs': 0}
 
     while True:
-        screen = pg.display.set_mode((672, 672))
         screen.fill((255, 255, 255))
         screen.blit(pg.image.load(Path('assets', 'background.png')), (0, 0))
         
@@ -226,6 +226,7 @@ def preview_jogo():
 def error(pontos):
 
     pg.init()
+    screen = pg.display.set_mode((672, 672))
 
     pg.mixer.music.load(Path('assets','game_sounds','error_sound.mp3'))
     pg.mixer.music.set_volume(0.7)
@@ -234,7 +235,6 @@ def error(pontos):
     counter = 0
 
     while True:
-        screen = pg.display.set_mode((672, 672))
         pg.display.set_caption('Game Over')
         counter += 1
 
@@ -256,6 +256,7 @@ def error(pontos):
 def game_over(pontos):
 
     pg.init()
+    screen = pg.display.set_mode((672, 672))
 
     pg.mixer.music.load(Path('assets','game_sounds','gameover_music.mp3'))
     pg.mixer.music.set_volume(0.7)
@@ -277,7 +278,6 @@ def game_over(pontos):
 
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
-        screen = pg.display.set_mode((672, 672))
         pg.display.set_caption('Game Over')
 
         screen.blit(pg.image.load(Path('assets', 'gameover_screen3.png')), (0, 0)) #Background com título e texto já incorporados
