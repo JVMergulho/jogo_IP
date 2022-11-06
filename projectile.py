@@ -2,7 +2,7 @@ import pygame as pg
 from pathlib import Path
 import math
 
-#Essa é a classe responsavel pelos projéteis
+#Essa é a classe responsável pelos projéteis
 
 class Projectile():
     def __init__(self, player):

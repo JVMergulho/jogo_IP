@@ -35,9 +35,10 @@ def gerar_itens(itens_lista, all_items, player, x, y):
 
 def main():
 
-    # Adiciona música de fundo
+    # Inicializa o pygame
     pg.init()
 
+    # carrega e inicia a música do jogo
     pg.mixer.music.load(Path('assets', 'game_music.mp3'))
     pg.mixer.music.set_volume(0.7)
     pg.mixer.music.play(-1)
