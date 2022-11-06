@@ -10,6 +10,7 @@ from item import *
 from projectile import Projectile
 import math
 from lives import Lives
+from menu import *
 
 
 def gerar_itens(itens_lista, all_items, player, x, y):
@@ -105,7 +106,10 @@ def main():
     energy=False
     # Variavel para controlar o tempo de uso do energético
     timer = 100
+    #Variavel para controlar se o contador de energéticos chegou a 3
+    overdose=False
     while True:
+        from menu import Screens
         cooldown -= 1  # esfriar o inseticida
         timer +=1 
         for event in pg.event.get():
@@ -115,7 +119,6 @@ def main():
             #
             if event.type == pg.MOUSEBUTTONDOWN and cooldown <= 0:
                 
-
                 bala = Projectile(player)
                 all_bullets.append(bala)
                 cooldown = bala.cooldown(cooldown,energy)
@@ -123,12 +126,14 @@ def main():
                     energy = False
                     
                 spray_sound.play()
-            if event.type == pg.KEYDOWN:
-              if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
-                  energy=True
-                  timer=0
-                  itens_coletados['energy_drink']=0
+                if event.type == pg.KEYDOWN:
+                   if event.key == pg.K_g and itens_coletados['energy_drink']>=3:
+                     energy=True
+                     timer=0
+                     itens_coletados['energy_drink']=0
           
+
+        #
         for balas in all_bullets:  # movimento do gas na tela
             balas.projectile_move()
 
@@ -214,8 +219,10 @@ def main():
         text_bugs = font_game.render(
             f'X {itens_coletados["bugs"]}', 1, branco)
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
+        pontos = (itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]
         text_pontuacao = font_game.render(
-            f'Pontuação: {(itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]}', 1, branco)
+            f'Pontuação: {pontos}', 1, branco)
+
         screen.blit(text_pontuacao, (270, 10))
         screen.blit(pg.transform.scale(pg.image.load(
             Path('assets', 'bug_simples.png')), (40, 35)), (20, 65))
@@ -247,9 +254,10 @@ def main():
                 print(coletado)
                 if coletado == "coffee":
                     live_points.vida_adicionar(player,i)
+                
             
-                    
-                    
+        if Lives.parar_jogo(live_points):
+            Screens.error(pontos)
                     
         # Desenha a vida na tela
         live_points.draw()
@@ -259,4 +267,4 @@ def main():
         
 
 if __name__ == '__main__':
-    main()
+    Screens.menu_screen()
