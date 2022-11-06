@@ -271,8 +271,8 @@ class Screens():
         
         botoes = []
 
-        botao_restart = Button(foto_botao_play, 336, 560, 'RESTART')
-        botao_menu = Button(foto_botao_play, 336, 640, 'MENU')
+        botao_restart = Button(foto_botao_play, 336, 545, 'RESTART')
+        botao_menu = Button(foto_botao_play, 336, 625, 'MENU')
 
         botoes.append(botao_restart)
         botoes.append(botao_menu)
