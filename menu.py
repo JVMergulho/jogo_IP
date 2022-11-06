@@ -179,7 +179,7 @@ def preview_jogo():
     screen = pg.display.set_mode((672, 672))
     font = pg.font.get_default_font()
     font_game = pg.font.SysFont(font, 30)
-    font_game_2 = pg.font.Font(Path('assets', 'ONYX.TTF'), 38)
+    font_game_2 = pg.font.Font(Path('assets', 'STARZONE.ttf'), 16)
 
     itens_coletados = {'coffee': 0,
                     'energy_drink': 0,
@@ -209,7 +209,7 @@ def preview_jogo():
 
 
         mensagem = font_game_2.render('APERTE EM QUALQUER LUGAR DA TELA PARA COMEÇAR', True, (0, 0, 0))
-        screen.blit(mensagem, (80, 336))
+        screen.blit(mensagem, (43, 336))
 
         for event in pg.event.get():
             if event.type == pg.QUIT:
