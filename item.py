@@ -52,7 +52,6 @@ class Item(pg.sprite.Sprite):
 
                     return self.type
                 except ValueError:
-                    print('Consegui lidar com o erro, chefia')
                     pass
             else:
                 return None

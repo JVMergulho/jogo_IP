@@ -41,7 +41,6 @@ class Player(pg.sprite.Sprite):
         if self.atual >= len(self.sprites):
             self.atual = 0
         self.image = self.sprites[int(self.atual)]
-        print(int(self.atual))
         self.image = pg.transform.scale(self.image, (70, 70))
 
     def update(self):

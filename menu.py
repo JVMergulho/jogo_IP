@@ -274,9 +274,6 @@ def game_over(pontos):
 
     text_points = points_font.render(f'Pontuação:{pontos}', True, 'White')
     text_points_rect = text_points.get_rect(midtop=(336, 260))
-    #Esse texto foi inserido no próprio background
-    #text_gameover = 'Infelizmente o poder do inseticida computational não foi suficiente para derrotar os bugs que se alastraram por todos os computadores do CIn. Mas calma, ainda há esperança! Clique em "RESTART" para entrar no buraco de minhoca e tentar derrotá-los novamente!'
-    
 
     while True:
         mouseX, mouseY = pg.mouse.get_pos()

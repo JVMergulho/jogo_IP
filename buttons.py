@@ -20,7 +20,6 @@ class Button():
 
     def verifica_clique(self, mouseX, mouseY):
         if mouseX in range(self.rect.left, self.rect.right) and mouseY in range(self.rect.top, self.rect.bottom):
-            print(f'Apertei botão {self.texto}')
             return True
     
     def hoover(self, mouseX, mouseY):

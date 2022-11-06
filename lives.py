@@ -12,10 +12,9 @@ class Lives(pg.sprite.Sprite):
         self.screen = win
         self.time = 0
     def draw(self):
-            
-    
          for i in range(self.qtd):
             self.screen.blit(self.image, (20 + i*30, 20))
+            
     def update_vida(self,player,Bug):
         colisao_vida=False
         self.time-=1

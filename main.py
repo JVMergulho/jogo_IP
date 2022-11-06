@@ -51,7 +51,7 @@ def main():
 
     morte_bug_sound = pg.mixer.Sound(Path('assets', 'morte_bug.wav'))
 
-    # define a variárvel que armazena o padrão RGB para a cor branca
+    # define a variável que armazena o padrão RGB para a cor branca
     branco = (255, 255, 255)
 
     # Configuração para o texto que será exibido
@@ -82,7 +82,6 @@ def main():
                        'bit_1': 0,
                        'bugs': 0}
     player = Player(screen, 320, 320, pg.K_d, pg.K_a, pg.K_w, pg.K_s)
-    # player2=Player(screen,300,320,pg.K_RIGHT,pg.K_LEFT,pg.K_UP,pg.K_DOWN)
 
     all_sprites = pg.sprite.Group()
     all_items = pg.sprite.Group()
@@ -165,7 +164,7 @@ def main():
                     'esquerda': None, 'direita': None, 'em cima': None, 'embaixo': None}
                 bug = Bug(x, y)
                 all_bugs.append(bug)
-        # desenha os bugs e impede a sobreposição dos bugs
+        # desenha e impede a sobreposição dos bugs
         for um_bug in all_bugs:
             um_bug.trace(screen)
             um_bug.update(player, identificar_posicao_bug)
@@ -192,7 +191,6 @@ def main():
             # Condicional para o projétil ser A quando off-screen
             if (bala.rect.x < 0 or bala.rect.x > width) or (bala.rect.y < 0 or bala.rect.y > height):
                 all_bullets.remove(bala)
-                print('removi bala')
             for um_bug in all_bugs:
                 um_bug.destroy = False
                 if bala.destroy == False and um_bug.destroy == False:
@@ -250,9 +248,7 @@ def main():
             coletado = i.update()
             if coletado != None:
                 itens_coletados[coletado] += 1
-                print(itens_coletados)
                 item_sound.play()  # Efeito sonoro da coleta de item
-                print(coletado)
                 if coletado == "coffee":
                     live_points.vida_adicionar(player, i)
 
