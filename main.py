@@ -257,7 +257,7 @@ def main():
                     live_points.vida_adicionar(player, i)
 
         if Lives.parar_jogo(live_points):
-            menu.Screens.error(pontos)
+            menu.error(pontos)
 
         # Desenha a vida na tela
         live_points.draw()
@@ -267,4 +267,4 @@ def main():
 
 
 if __name__ == '__main__':
-    menu.Screens.menu_screen()
+    menu.menu_screen()
