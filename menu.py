@@ -19,10 +19,10 @@ class Screens():
         foto_botao_play = pg.image.load(Path('assets','button4.png'))
         foto_botao_play = pg.transform.scale(foto_botao_play, (250, 100))
 
-        botao_play = Button(foto_botao_play, 336, 305, 'PLAY')
-        botao_story = Button(foto_botao_play, 336, 415, 'STORY')
-        botao_htp = Button(foto_botao_play, 336, 525, 'HOW TO PLAY')
-        botao_quit = Button(foto_botao_play, 336, 635, 'QUIT')
+        botao_play = Button(foto_botao_play, 336, 295, 'PLAY')
+        botao_story = Button(foto_botao_play, 336, 405, 'STORY')
+        botao_htp = Button(foto_botao_play, 336, 515, 'HOW TO PLAY')
+        botao_quit = Button(foto_botao_play, 336, 625, 'QUIT')
 
         botoes.append(botao_play)
         botoes.append(botao_story)
@@ -104,7 +104,7 @@ class Screens():
         foto_bug = pg.image.load(Path('assets','bug_simples.png'))
         foto_bug = pg.transform.scale(foto_bug, (65, 65))
 
-        botao_menu = Button(foto_botao, 336, 635, 'MENU')
+        botao_menu = Button(foto_botao, 336, 625, 'MENU')
 
         texto = '   Uma bela noite, um programador do CIn estava em um grad desenvolvendo um sistema de software, quando seu código começou a apresentar um comportamento inesperado. Por mais que ele tentasse, não conseguiu se livrar dos malditos bugs. Quando estava próximo de desistir, uma figura misteriosa surgiu: Silvio-sensei, mestre das artes místicas da computação. Silvio sugeriu a seguinte estratégia: Alcançar o ciberespaço (viajando através do R5) e, assim, derrotar os bugs no mano a mano, usando, para isso, um inseticida computacional.'
 
@@ -152,7 +152,7 @@ class Screens():
         foto_botao = pg.image.load(Path('assets','button4.png'))
         foto_botao = pg.transform.scale(foto_botao, (250, 100))
 
-        botao_menu = Button(foto_botao, 336, 635, 'MENU')
+        botao_menu = Button(foto_botao, 336, 625, 'MENU')
 
         while True:
             mouseX, mouseY = pg.mouse.get_pos()
@@ -271,8 +271,8 @@ class Screens():
         
         botoes = []
 
-        botao_restart = Button(foto_botao_play, 336, 550, 'RESTART')
-        botao_menu = Button(foto_botao_play, 336, 630, 'MENU')
+        botao_restart = Button(foto_botao_play, 336, 560, 'RESTART')
+        botao_menu = Button(foto_botao_play, 336, 640, 'MENU')
 
         botoes.append(botao_restart)
         botoes.append(botao_menu)
