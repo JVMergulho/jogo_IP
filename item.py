@@ -44,10 +44,14 @@ class Item(pg.sprite.Sprite):
 
         # Caso o player toque no item
         if self.rect.colliderect(self.player.rect):
-            pg.sprite.Sprite.kill(self)
+            try:
+                pg.sprite.Sprite.kill(self)
 
-            self.itens_lista.remove(self)
+                self.itens_lista.remove(self)
 
-            return self.type
+                return self.type
+            except ValueError:
+                print('Consegui lidar com o erro, chefia')
+                pass
         else:
             return None

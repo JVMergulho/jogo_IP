@@ -220,15 +220,23 @@ def main():
                         itens_coletados['bugs'] += 1
 
         for bala in remove_bullets:
-            all_bullets.remove(bala)
+            try:
+                all_bullets.remove(bala)
+            except ValueError:
+                print('Consegui lidar com o erro, chefia')
+                pass
 
         for um_bug in remove_bugs:
-            all_bugs.remove(um_bug)
-            morte_bug_sound.play()  # Efeito sonoro da coleta de item
+            try:
+                all_bugs.remove(um_bug)
+                morte_bug_sound.play()  # Efeito sonoro da coleta de item
 
-            # Tem uma chance de gerar um item no lugar onde o bug morre
-            if random.randint(0, 2) == 1:
-                gerar_itens(itens_lista, all_items, player, um_bug.x, um_bug.y)
+                # Tem uma chance de gerar um item no lugar onde o bug morre
+                if random.randint(0, 2) == 1:
+                    gerar_itens(itens_lista, all_items, player, um_bug.x, um_bug.y)
+            except:
+                print('Consegui lidar com o erro, chefia')
+                pass
         # Inserir os itens coletados,bugs mortos e a pontuação na tela
         text_energy_drink = font_game.render(
             f'X {itens_coletados["energy_drink"]}', 1, branco)
