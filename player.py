@@ -1,6 +1,5 @@
 import pygame as pg
 from pathlib import Path
-import sys
 
 class Player(pg.sprite.Sprite):
     def __init__(self, win, x, y, right, left, up, down):
@@ -44,9 +43,6 @@ class Player(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (70, 70))
 
     def update(self):
-        self.move()
-
-    def move(self):
         walk = False
 
         # Identifica as teclas que estão sendo pressionadas pelo usuário

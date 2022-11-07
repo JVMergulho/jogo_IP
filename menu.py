@@ -64,23 +64,6 @@ def menu_screen():
 
         pg.display.flip()
 
-#função destinada a escrever um texto grande para quebrar as linhas quando passar da tela
-def texto_bloco(screen, texto, posicao, fonte, cor):
-    espaco = fonte.size('')[0] #retorna a largura do espaço da fonte
-    inicioX = posicao[0] #posição inicial do texto em bloco
-    inicioY = posicao[1]
-
-    for palavra in texto:
-        palavra_texto = fonte.render(palavra, True, cor)
-        largura_palavra, altura_palavra = palavra_texto.get_size() #retorna a largura e altura da palavra
-        if inicioX + largura_palavra >= 657:
-            inicioX = posicao[0]
-            inicioY += altura_palavra
-        screen.blit(palavra_texto, (inicioX, inicioY))
-        inicioX += largura_palavra + espaco
-    
-
-
 # Fontes
 pg.font.init()
 title_font = pg.font.Font(Path('assets', 'RAGE.TTF'), 55)
@@ -116,19 +99,6 @@ def story_screen():
 
         Button.draw(botao_menu, screen)
         Button.hoover(botao_menu, mouseX, mouseY)
-
-        # text_title = title_font.render('A história de Silvio-sensei', True, (89, 5, 110))
-        # texto_bloco(screen, texto, (20, 100), text_font, (255, 255, 255))
-        # screen.blit(text_title, (75, 20))
-        
-        # nome_silvio = names_font.render('Silvio-sensei', True, (255, 255, 255))
-        # nome_bug = names_font.render('Bug', True, (255, 255, 255))
-        # screen.blit(foto_silvio, (175, 385))
-        # screen.blit(foto_bug, (430, 394))
-        # screen.blit(nome_silvio, (150, 461))
-        # screen.blit(nome_bug, (438, 461))
-
-
 
         for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -249,8 +219,6 @@ def error(pontos):
             game_over(pontos)
     
         pg.display.flip()
-
-
 
 #Tela de Game Over
 def game_over(pontos):

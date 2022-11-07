@@ -22,9 +22,7 @@ class Lives(pg.sprite.Sprite):
             self.qtd-=1
             self.time=60
             colisao_vida=True
-        # if self.qtd == 0:
-        #     pg.quit()
-        #     sys.exit()
+            
         return colisao_vida
     def vida_adicionar(self,player,item):
          if player.rect.colliderect(item.rect) is True and self.qtd<=3:
