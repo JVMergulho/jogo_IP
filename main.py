@@ -219,7 +219,7 @@ def main():
             f'X {itens_coletados["bugs"]}', 1, branco)
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
         pontos = (
-            itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]*3
+            itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]
         text_pontuacao = font_game.render(
             f'Pontuação: {pontos}', 1, branco)
 

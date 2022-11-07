@@ -93,7 +93,7 @@ class Bug():
     # Altera a velocidade do bug de acordo com a pontuação
     def vel(self, itens_coletados):
         pontuacao = (
-            (itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]*3)
+            (itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"])
         if 30 <= pontuacao < 60:
             self.vel = 4
 
