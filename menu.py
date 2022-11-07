@@ -88,8 +88,6 @@ def story_screen():
 
     botao_menu = Button(foto_botao, 336, 625, 'MENU')
 
-    texto = '   Uma bela noite, um programador do CIn estava em um grad desenvolvendo um sistema de software, quando seu código começou a apresentar um comportamento inesperado. Por mais que ele tentasse, não conseguiu se livrar dos malditos bugs. Quando estava próximo de desistir, uma figura misteriosa surgiu: Silvio-sensei, mestre das artes místicas da computação. Silvio sugeriu a seguinte estratégia: Alcançar o ciberespaço (viajando através do R5) e, assim, derrotar os bugs no mano a mano, usando, para isso, um inseticida computacional.'
-
     while True:
         mouseX, mouseY = pg.mouse.get_pos()
         #Background image com título, texto e imagens já incorporados

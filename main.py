@@ -132,7 +132,7 @@ def main():
                     timer = 0
                     itens_coletados['energy_drink'] = 0
 
-        #
+        
         for balas in all_bullets:  # movimento do gas na tela
             balas.projectile_move()
 
@@ -185,7 +185,7 @@ def main():
             Bug.vel(um_bug, itens_coletados)
             live_points.update_vida(player, um_bug)
 
-        # Destruindo os projéteis e os bugs quando entram em colisãoAWW
+        # Destruindo os projéteis e os bugs quando entram em colisão
 
         for bala in all_bullets:
             bala.destroy = False
