@@ -132,7 +132,6 @@ def main():
                     timer = 0
                     itens_coletados['energy_drink'] = 0
 
-        
         for balas in all_bullets:  # movimento do gas na tela
             balas.projectile_move()
 
@@ -220,7 +219,7 @@ def main():
             f'X {itens_coletados["bugs"]}', 1, branco)
         # Pontuação:Um bug  vale 1 ponto e cada bit vale 5 pontos
         pontos = (
-            itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]
+            itens_coletados["bit_0"] + itens_coletados["bit_1"])*5 + itens_coletados["bugs"]*3
         text_pontuacao = font_game.render(
             f'Pontuação: {pontos}', 1, branco)
 
